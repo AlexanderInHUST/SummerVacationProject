@@ -8,11 +8,11 @@ int saveBuildingData(struct Building* head){
 	if ((file = fopen("data_of_building.dat", "w")) == NULL){
 		return -1;
 	}
-	fprintf(file, "%d|%s|%s|%s|%d|%d|%f|%d|%d\n",
+	fprintf(file, "%d %s %s %s %d %d %f %d %d\n",
 		p->rec, p->num, p->administrator, p->tel, p->rooms, p->beds, p->cost, p->nextRec, p->firstStudentRec);
 	while (p->nextBuilding != NULL){
 		p = p->nextBuilding;
-		fprintf(file, "%d|%s|%s|%s|%d|%d|%f|%d|%d\n",
+		fprintf(file, "%d %s %s %s %d %d %f %d %d\n",
 			p->rec, p->num, p->administrator, p->tel, p->rooms, p->beds, p->cost, p->nextRec, p->firstStudentRec);
 	}
 	fclose(file);
@@ -30,12 +30,12 @@ int saveStudentData(struct Building* head){
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		student = building->firstStudent;
-		fprintf(file, "%d|%s|%c|%s|%s|%d|%s|%s|%s|%s|%s|%d|%d\n",
-			student->rec, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->nextRec, student->firstExpensesRec);
+		fprintf(file, "%d %s %s %c %s %s %d %s %s %s %s %s %d %d\n",
+			student->rec, student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->nextRec, student->firstExpensesRec);
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
-			fprintf(file, "%d|%s|%c|%s|%s|%d|%s|%s|%s|%s|%s|%d|%d\n",
-				student->rec, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->nextRec, student->firstExpensesRec);
+			fprintf(file, "%d %s %s %c %s %s %d %s %s %s %s %s %d %d\n",
+				student->rec, student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->nextRec, student->firstExpensesRec);
 		}
 	}
 	fclose(file);
@@ -57,15 +57,25 @@ int saveExpensesData(struct Building* head){
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
 			expenses = student->firstExpenses;
-			fprintf(file, "%d|%s|%s|%s|%f|%s|%s|%d\n",
+			fprintf(file, "%d %s %s %s %f %s %s %d\n",
 				expenses->rec, expenses->id, expenses->name, expenses->date, expenses->cost, expenses->usage, expenses->officer, expenses->nextRec);
 			while (expenses->nextExpenses != NULL){
 				expenses = expenses->nextExpenses;
-				fprintf(file, "%d|%s|%s|%s|%f|%s|%s|%d\n",
+				fprintf(file, "%d %s %s %s %f %s %s %d\n",
 					expenses->rec, expenses->id, expenses->name, expenses->date, expenses->cost, expenses->usage, expenses->officer, expenses->nextRec);
 			}
 		}
 	}
 	fclose(file);
+	return 1;
+}
+
+int saveAllData(struct Building *head){
+	if (saveBuildingData(head) == -1)
+		return -1;
+	if (saveStudentData(head) == -1)
+		return -2;
+	if (saveExpensesData(head) == -1)
+		return -3;
 	return 1;
 }

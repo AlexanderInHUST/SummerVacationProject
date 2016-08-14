@@ -37,6 +37,12 @@
     <Filter Include="头文件\Presenter">
       <UniqueIdentifier>{c30d95cb-aa48-49b1-9404-9cf932425af5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\View\Dialog">
+      <UniqueIdentifier>{7a7afbaa-7845-456e-ab2d-7913a5eb5a4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\View">
+      <UniqueIdentifier>{cee66d08-0886-4f27-a8d1-a9e1e4d16e35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +75,48 @@
     <ClInclude Include="Save.h">
       <Filter>头文件\Presenter</Filter>
     </ClInclude>
+    <ClInclude Include="load.h">
+      <Filter>头文件\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="FindBuildingData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutBox.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="CountArrearage.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="CountDormitory.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="CountGender.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="CountIncome.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="FindExpensesDataById.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="FindExpensesDayaByClass.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="FindStudentDataById.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="FindStudentDataByName.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="LookAtBuildingData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="LookAtExpensesData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="LookAtStudentData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildingData.cpp">
@@ -98,6 +146,45 @@
     <ClCompile Include="Tools.cpp">
       <Filter>源文件\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="FindBuildingData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FindExpensesDataByClass.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FindStudentDataById.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FindExpensesDataById.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FindStudentDataByName.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="LookAtBuildingData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="LookAtExpensesData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="LookAtStudentData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CountArrearage.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CountDormitory.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CountGender.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CountIncome.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutBox.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SummerVacationProject.rc">
@@ -105,10 +192,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
+    <Image Include="SummerVacationProject.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="SummerVacationProject.ico">
+    <Image Include="small.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

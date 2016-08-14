@@ -140,38 +140,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// 分析菜单选择: 
 		switch (wmId)
 		{
-		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-			break;
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
 		case IDM_TEST:{
 			
 			//
-			struct Building *p = head;
-			for (int i = 0; i < 10; i++){
-				struct Building *building = createBuildingData("wqq", "wwwww", "ret", i, 4, 9.3, NULL, NULL, p->nextRec);
-				p->nextBuilding = building;
-				p = p->nextBuilding;
-			}
-			p->nextBuilding = NULL;
-			p = head;
-			while (p->nextBuilding != NULL){
-				p = p->nextBuilding;
-				struct Student* student = createStudentData("head", "head", 'H', "head", "head", -1, "head", "head", "head", "head", "head", NULL, NULL, p->firstStudentRec);
-				p->firstStudent = student;
-				for (int i = 0; i < 5; i++){
-					struct Student* temp = createStudentData("123", "3214", 'A', "432", "rwbwre", i, "erthw", "erthe", p->num, "vbxdf", "tr", NULL, NULL, student->nextRec);
-					student->nextStudent = temp;
-					student = student->nextStudent;
-				}
-				student->nextStudent = NULL;
-			}
-			saveBuildingData(head);
-			saveStudentData(head);
+			struct Building *h = loadAllData();
 			//测试保存
 			//
+			break;
+		}
+		case IDM_ABOUT:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
 		}
 		default:

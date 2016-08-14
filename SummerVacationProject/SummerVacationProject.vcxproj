@@ -79,8 +79,22 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutBox.h" />
     <ClInclude Include="BuildingData.h" />
+    <ClInclude Include="CountArrearage.h" />
+    <ClInclude Include="CountDormitory.h" />
+    <ClInclude Include="CountGender.h" />
+    <ClInclude Include="CountIncome.h" />
     <ClInclude Include="ExpensesData.h" />
+    <ClInclude Include="FindBuildingData.h" />
+    <ClInclude Include="FindExpensesDataById.h" />
+    <ClInclude Include="FindExpensesDayaByClass.h" />
+    <ClInclude Include="FindStudentDataById.h" />
+    <ClInclude Include="FindStudentDataByName.h" />
+    <ClInclude Include="load.h" />
+    <ClInclude Include="LookAtBuildingData.h" />
+    <ClInclude Include="LookAtExpensesData.h" />
+    <ClInclude Include="LookAtStudentData.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Save.h" />
     <ClInclude Include="stdafx.h" />
@@ -90,9 +104,22 @@
     <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutBox.cpp" />
     <ClCompile Include="BuildingData.cpp" />
+    <ClCompile Include="CountArrearage.cpp" />
+    <ClCompile Include="CountDormitory.cpp" />
+    <ClCompile Include="CountGender.cpp" />
+    <ClCompile Include="CountIncome.cpp" />
     <ClCompile Include="ExpensesData.cpp" />
+    <ClCompile Include="FindBuildingData.cpp" />
+    <ClCompile Include="FindExpensesDataById.cpp" />
+    <ClCompile Include="FindExpensesDataByClass.cpp" />
+    <ClCompile Include="FindStudentDataById.cpp" />
+    <ClCompile Include="FindStudentDataByName.cpp" />
     <ClCompile Include="Load.cpp" />
+    <ClCompile Include="LookAtBuildingData.cpp" />
+    <ClCompile Include="LookAtExpensesData.cpp" />
+    <ClCompile Include="LookAtStudentData.cpp" />
     <ClCompile Include="Query.cpp" />
     <ClCompile Include="Save.cpp" />
     <ClCompile Include="stdafx.cpp">
