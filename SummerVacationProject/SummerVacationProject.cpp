@@ -143,17 +143,69 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
-		case IDM_TEST:{
-			
-			//
-			struct Building *h = loadAllData();
-			//测试保存
-			//
-			break;
-		}
 		case IDM_ABOUT:{
 			DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			break;
+		}
+		case IDM_F_D:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_F_D), hWnd, FindBuildingDataProc);
+			break;
+		}
+		case IDM_F_FC:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_F_E_C), hWnd, FindExpensesDataByClassProc);
+			break;
+		}
+		case IDM_F_FI:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_F_E_I), hWnd, FindExpensesDataByIdProc);
+			break;
+		}
+		case IDM_F_SI:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_F_S_I), hWnd, FindStudentDataByIdProc);
+			break;
+		}
+		case IDM_F_SN:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_F_S_N), hWnd, FindStudentDataByNameProc);
+			break;
+		}
+		case IDM_L_D:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_D), hWnd, LookAtBuildingDataProc);
+			break;
+		}
+		case IDM_L_S:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_S), hWnd, LookAtStudentDataProc);
+			break;
+		}
+		case IDM_L_F:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_E), hWnd, LookAtExpensesDataProc);
+			break;
+		}
+		case IDM_S_A:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_S_A), hWnd, CountArrearageProc);
+			break;
+		}
+		case IDM_S_D:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_S_D), hWnd, CountDormitoryProc);
+			break;
+		}
+		case IDM_S_G:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_S_G), hWnd, CountGenderProc);
+			break;
+		}
+		case IDM_S_I:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_S_I), hWnd, CountIncomeProc);
 			break;
 		}
 		default:
@@ -176,21 +228,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 // “关于”框的消息处理程序。
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	UNREFERENCED_PARAMETER(lParam);
-	switch (message)
-	{
-	case WM_INITDIALOG:
-		return (INT_PTR)TRUE;
 
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-		{
-			EndDialog(hDlg, LOWORD(wParam));
-			return (INT_PTR)TRUE;
-		}
-		break;
-	}
-	return (INT_PTR)FALSE;
-}
