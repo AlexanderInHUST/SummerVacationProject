@@ -117,6 +117,12 @@
     <ClInclude Include="LookAtStudentData.h">
       <Filter>头文件\View</Filter>
     </ClInclude>
+    <ClInclude Include="Query.h">
+      <Filter>头文件\Presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="FillList.h">
+      <Filter>头文件\Presenter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildingData.cpp">
@@ -184,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="AboutBox.cpp">
       <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="FillList.cpp">
+      <Filter>源文件\Presenter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

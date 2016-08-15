@@ -19,6 +19,12 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+
+//作为其他函数获得head的唯一方法
+struct Building* getHead(){
+	return head;
+}
+
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPTSTR    lpCmdLine,
@@ -44,6 +50,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SUMMERVACATIONPROJECT));
+	head = loadAllData();
 
 	// 主消息循环: 
 	while (GetMessage(&msg, NULL, 0, 0))

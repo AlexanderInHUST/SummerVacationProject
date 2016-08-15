@@ -27,9 +27,14 @@
 //Presenter
 #include "Save.h"
 #include "load.h"
+#include "Query.h"
+#include "FillList.h"
 
 //Tools
 #include "Tools.h"
+
+//Func
+struct Building* getHead();
 
 
 

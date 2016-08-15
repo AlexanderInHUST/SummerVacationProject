@@ -19,6 +19,7 @@ struct Student* queryStudentById(char id[12], struct Building *head){
 		building = building->nextBuilding;
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
+			student = student->nextStudent;
 			if (strcmp(student->id, id) == 0){
 				return student;
 			}
@@ -27,22 +28,32 @@ struct Student* queryStudentById(char id[12], struct Building *head){
 	return NULL;
 }
 
-struct Student* queryStudentByName(char name[12], struct Building *head){
+struct Student* queryStudentListByName(char name[12], struct Building *head){
 	struct Building *building = head;
 	struct Student *student;
+	struct Student *studentByName;
+	struct Student *headStudentByName;
+	bool exist = false;
+	studentByName = (struct Student*)malloc(sizeof(struct Student));
+	headStudentByName = studentByName;
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
+			student = student->nextStudent;
 			if (strcmp(student->name, name) == 0){
-				return student;
+				exist = true;
+				struct Student *temp =
+					createStudentData(student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->firstExpenses, NULL, -1);
+				studentByName->nextStudent = temp;
+				studentByName = studentByName->nextStudent;
 			}
 		}
 	}
-	return NULL;
+	return (exist == false) ? NULL : headStudentByName;
 }
 
-struct Student* queryStudentListByName(char clazz[10], struct Building *head){
+struct Student* queryStudentListByClass(char clazz[10], struct Building *head){
 	struct Building *building = head;
 	struct Student *student;
 	struct Student *studentByClass;

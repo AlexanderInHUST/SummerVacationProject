@@ -3,6 +3,9 @@
 
 INT_PTR CALLBACK FindExpensesDataByIdProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
+	struct Building *head = getHead();
+	struct Student *student;
+	struct Expenses *expenses;
 	HWND hListView = GetDlgItem(hDlg, IDC_F_E_I_LIST);
 	switch (message){
 	case WM_INITDIALOG:{
@@ -42,6 +45,39 @@ INT_PTR CALLBACK FindExpensesDataByIdProc(HWND hDlg, UINT message, WPARAM wParam
 	}
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_F_E_I_SERACH:{
+			ListView_DeleteAllItems(hListView);
+			HWND editBox = GetDlgItem(hDlg, IDC_F_E_I_EDIT);
+			LPWSTR idInfo = (LPWSTR)malloc(sizeof(LPWCH) * 13);
+			int count = 0;
+			GetWindowText((HWND)editBox, idInfo, 13);
+			char *idInfoString = (char*)malloc(sizeof(char) * 13);
+			USES_CONVERSION;
+			idInfoString = W2A(idInfo);
+			if (strlen(idInfoString) == 0){
+				MessageBox(hDlg, L"请输入所查询的学号", L"提示", MB_OK);
+			}
+			else{
+				student = queryStudentById(idInfoString, head);
+				if (student == NULL){
+					MessageBox(hDlg, L"没有相应的学生信息", L"提示", MB_OK);
+				}
+				else{
+					expenses = student->firstExpenses;
+					while (expenses->nextExpenses != NULL){
+						expenses = expenses->nextExpenses;
+						LVITEM vitem;
+						vitem.mask = LVIF_TEXT;
+						vitem.iItem = count;
+						fillExpensesList(hListView, vitem, expenses, count++);
+					}
+					if (expenses->rec == student->firstExpensesRec){
+						MessageBox(hDlg, L"没有该学生的缴费信息", L"提示", MB_OK);
+					}
+				}
+			}
+			break;
+		}
 		case IDC_F_E_I_OK:{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
