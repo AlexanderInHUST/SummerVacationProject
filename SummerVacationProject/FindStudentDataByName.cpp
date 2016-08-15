@@ -4,6 +4,9 @@
 INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_S_N_LIST);
+	struct Building *head = getHead();
+	struct Student *headStudent;
+	struct Student *student;
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;
@@ -67,6 +70,36 @@ INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wPara
 	}
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_F_S_N_SERACH:{
+			ListView_DeleteAllItems(hListView);
+			HWND editBox = GetDlgItem(hDlg, IDC_F_S_N_EDIT);
+			LPWSTR nameInfo = (LPWSTR)malloc(sizeof(LPWCH) * 11);
+			int count = 0;
+			GetWindowText((HWND)editBox, nameInfo, 11);
+			char *nameInfoString = (char*)malloc(sizeof(char) * 11);
+			USES_CONVERSION;
+			nameInfoString = W2A(nameInfo);
+			if (strlen(nameInfoString) == 0){
+				MessageBox(hDlg, L"请输入姓名", L"提示", MB_OK);
+			}
+			else{
+				headStudent = queryStudentListByName(nameInfoString, head);
+				student = headStudent;
+				if (headStudent == NULL){
+					MessageBox(hDlg, L"没有相应的班级信息", L"提示", MB_OK);
+				}
+				else{
+					while (student->nextStudent != NULL){
+						student = student->nextStudent;
+						LVITEM vitem;
+						vitem.mask = LVIF_TEXT;
+						vitem.iItem = count;
+						fillStudentList(hListView, vitem, student, count++);
+					}
+				}
+			}
+			break;
+		}
 		case IDC_F_S_N_OK:{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
