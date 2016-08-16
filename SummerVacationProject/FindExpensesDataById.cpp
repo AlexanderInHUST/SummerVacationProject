@@ -7,6 +7,7 @@ INT_PTR CALLBACK FindExpensesDataByIdProc(HWND hDlg, UINT message, WPARAM wParam
 	struct Student *student;
 	struct Expenses *expenses;
 	HWND hListView = GetDlgItem(hDlg, IDC_F_E_I_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;
@@ -48,12 +49,9 @@ INT_PTR CALLBACK FindExpensesDataByIdProc(HWND hDlg, UINT message, WPARAM wParam
 		case IDC_F_E_I_SERACH:{
 			ListView_DeleteAllItems(hListView);
 			HWND editBox = GetDlgItem(hDlg, IDC_F_E_I_EDIT);
-			LPWSTR idInfo = (LPWSTR)malloc(sizeof(LPWCH) * 13);
 			int count = 0;
-			GetWindowText((HWND)editBox, idInfo, 13);
-			char *idInfoString = (char*)malloc(sizeof(char) * 13);
-			USES_CONVERSION;
-			idInfoString = W2A(idInfo);
+			char *idInfoString;
+			idInfoString = getDataFromEditBox(editBox, 13);
 			if (strlen(idInfoString) == 0){
 				MessageBox(hDlg, L"请输入所查询的学号", L"提示", MB_OK);
 			}

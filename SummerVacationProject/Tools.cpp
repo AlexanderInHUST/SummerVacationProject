@@ -57,3 +57,12 @@ LPWSTR charToLPWSTR(char ch){
 	MultiByteToWideChar(CP_ACP, 0, string, dwLen, result, nwLen);
 	return result;
 }
+
+char* getDataFromEditBox(HWND editBox, int length){
+	LPWSTR info = (LPWSTR)malloc(sizeof(LPWCH) * (length + 1));
+	GetWindowText((HWND)editBox, info, length + 1);
+	char *stringInfo = (char*)malloc(sizeof(char) * length + 1);
+	USES_CONVERSION;
+	stringInfo = W2A(info);
+	return stringInfo;
+}

@@ -4,6 +4,7 @@
 INT_PTR CALLBACK CountGenderProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_S_G_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;

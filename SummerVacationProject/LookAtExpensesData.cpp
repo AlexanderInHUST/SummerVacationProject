@@ -8,6 +8,7 @@ INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 	struct Student *student;
 	struct Expenses *expenses;
 	HWND hListView = GetDlgItem(hDlg, IDC_L_E_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;

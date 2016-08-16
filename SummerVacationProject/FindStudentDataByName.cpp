@@ -4,6 +4,7 @@
 INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_S_N_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
 	struct Student *headStudent;
 	struct Student *student;
@@ -73,12 +74,9 @@ INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wPara
 		case IDC_F_S_N_SERACH:{
 			ListView_DeleteAllItems(hListView);
 			HWND editBox = GetDlgItem(hDlg, IDC_F_S_N_EDIT);
-			LPWSTR nameInfo = (LPWSTR)malloc(sizeof(LPWCH) * 11);
 			int count = 0;
-			GetWindowText((HWND)editBox, nameInfo, 11);
-			char *nameInfoString = (char*)malloc(sizeof(char) * 11);
-			USES_CONVERSION;
-			nameInfoString = W2A(nameInfo);
+			char *nameInfoString;
+			nameInfoString = getDataFromEditBox(editBox, 11);
 			if (strlen(nameInfoString) == 0){
 				MessageBox(hDlg, L"请输入姓名", L"提示", MB_OK);
 			}

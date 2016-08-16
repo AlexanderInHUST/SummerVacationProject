@@ -3,9 +3,11 @@
 
 struct Building* queryBuilding(char num[5], struct Building *head){
 	struct Building *p = head;
+	char innerNum[5];
+	strcpy(innerNum, num);
 	while (p->nextBuilding != NULL){
 		p = p->nextBuilding;
-		if (strcmp(p->num, num) == 0){
+		if (strcmp(p->num, innerNum) == 0){
 			return p;
 		}
 	}
@@ -15,12 +17,14 @@ struct Building* queryBuilding(char num[5], struct Building *head){
 struct Student* queryStudentById(char id[12], struct Building *head){
 	struct Building *building = head;
 	struct Student *student;
+	char innerId[12];
+	strcpy(innerId, id);
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
-			if (strcmp(student->id, id) == 0){
+			if (strcmp(student->id, innerId) == 0){
 				return student;
 			}
 		}
@@ -33,7 +37,9 @@ struct Student* queryStudentListByName(char name[12], struct Building *head){
 	struct Student *student;
 	struct Student *studentByName;
 	struct Student *headStudentByName;
+	char innerName[12];
 	bool exist = false;
+	strcpy(innerName, name);
 	studentByName = (struct Student*)malloc(sizeof(struct Student));
 	headStudentByName = studentByName;
 	while (building->nextBuilding != NULL){
@@ -41,7 +47,7 @@ struct Student* queryStudentListByName(char name[12], struct Building *head){
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
-			if (strcmp(student->name, name) == 0){
+			if (strcmp(student->name, innerName) == 0){
 				exist = true;
 				struct Student *temp =
 					createStudentData(student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->firstExpenses, NULL, -1);
@@ -58,7 +64,9 @@ struct Student* queryStudentListByClass(char clazz[10], struct Building *head){
 	struct Student *student;
 	struct Student *studentByClass;
 	struct Student *headStudentByClass;
+	char innerClazz[10];
 	bool exist = false;
+	strcpy(innerClazz, clazz);
 	studentByClass = (struct Student*)malloc(sizeof(struct Student));
 	headStudentByClass = studentByClass;
 	while (building->nextBuilding != NULL){
@@ -66,7 +74,7 @@ struct Student* queryStudentListByClass(char clazz[10], struct Building *head){
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
-			if (strcmp(student->clazz, clazz) == 0){
+			if (strcmp(student->clazz, innerClazz) == 0){
 				exist = true;
 				struct Student *temp =
 					createStudentData(student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->firstExpenses, NULL, -1);

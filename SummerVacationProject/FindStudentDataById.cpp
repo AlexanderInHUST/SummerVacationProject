@@ -4,6 +4,7 @@
 INT_PTR CALLBACK FindStudentDataByIdProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_S_I_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
 	struct Student *student;
 	switch (message){
@@ -72,12 +73,9 @@ INT_PTR CALLBACK FindStudentDataByIdProc(HWND hDlg, UINT message, WPARAM wParam,
 		case IDC_F_S_I_SERACH:{
 			ListView_DeleteAllItems(hListView);
 			HWND editBox = GetDlgItem(hDlg, IDC_F_S_I_EDIT);
-			LPWSTR idInfo = (LPWSTR)malloc(sizeof(LPWCH) * 13);
 			int count = 0;
-			GetWindowText((HWND)editBox, idInfo, 13);
-			char *idInfoString = (char*)malloc(sizeof(char) * 13);
-			USES_CONVERSION;
-			idInfoString = W2A(idInfo);
+			char *idInfoString;
+			idInfoString = getDataFromEditBox(editBox, 13);
 			if (strlen(idInfoString) == 0){
 				MessageBox(hDlg, L"请输入所查询的学号", L"提示", MB_OK);
 			}

@@ -4,6 +4,7 @@
 INT_PTR CALLBACK FindBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_D_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
 	struct Building *building;
 	switch (message){
@@ -47,11 +48,8 @@ INT_PTR CALLBACK FindBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 		case IDC_F_D_SERACH:{
 			ListView_DeleteAllItems(hListView);
 			HWND editBox = GetDlgItem(hDlg, IDC_F_D_EDIT);
-			LPWSTR buildingInfo = (LPWSTR)malloc(sizeof(LPWCH) * 6);
-			GetWindowText((HWND)editBox, buildingInfo, 6);
-			char *buildingInfoString = (char*)malloc(sizeof(char) * 6);
-			USES_CONVERSION;
-			buildingInfoString = W2A(buildingInfo);
+			char *buildingInfoString;
+			buildingInfoString = getDataFromEditBox(editBox, 6);
 			if (strlen(buildingInfoString) == 0){
 				MessageBox(hDlg, L"请输入所搜索宿舍楼的楼号", L"提示", MB_OK);
 			}

@@ -22,10 +22,22 @@ struct Building* createBuildingData(
 	newBuilding->rooms = rooms;
 	newBuilding->beds = beds;
 	newBuilding->cost = cost;
-	newBuilding->firstStudent = firstStudent;
-	newBuilding->nextBuilding = newBuilding;
+	if (firstStudent == NULL){
+		newBuilding->firstStudentRec = getID();
+		newBuilding->firstStudent = createStudentData("head", "head", 'H', "head", "head", -1, "head", "head", "head", " head", "head", NULL, NULL, newBuilding->firstStudentRec);
+		newBuilding->firstStudent->nextStudent = NULL;
+	}
+	else{
+		newBuilding->firstStudent = firstStudent;
+		newBuilding->firstStudentRec = firstStudent->rec;
+	}
+	if (nextBuilding == NULL){
+		newBuilding->nextRec = getID();
+	}
+	else{
+		newBuilding->nextRec = nextBuilding->rec;
+	}
+	newBuilding->nextBuilding = nextBuilding;
 	newBuilding->rec = rec;
-	newBuilding->nextRec = getID();
-	newBuilding->firstStudentRec = getID();
 	return newBuilding;
 }

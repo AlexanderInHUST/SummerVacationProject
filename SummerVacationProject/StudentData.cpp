@@ -32,10 +32,22 @@ struct Student* createStudentData(
 	strcpy(newStudent->building, building);
 	strcpy(newStudent->room, room);
 	strcpy(newStudent->tel, tel);
-	newStudent->firstExpenses = firstExpenses;
+	if (firstExpenses == NULL){
+		newStudent->firstExpensesRec = getID();
+		newStudent->firstExpenses = createExpensesData("head", "head", "head", -1, "head", "head", NULL, newStudent->firstExpensesRec);
+		newStudent->firstExpenses->nextExpenses = NULL;
+	}
+	else{
+		newStudent->firstExpenses = firstExpenses;
+		newStudent->firstExpensesRec = firstExpenses->rec;
+	}
+	if (nextStudent == NULL){
+		newStudent->nextRec = getID();
+	}
+	else{
+		newStudent->nextRec = nextStudent->rec;
+	}
 	newStudent->nextStudent = nextStudent;
 	newStudent->rec = rec;
-	newStudent->nextRec = getID();
-	newStudent->firstExpensesRec = getID();
 	return newStudent;
 }

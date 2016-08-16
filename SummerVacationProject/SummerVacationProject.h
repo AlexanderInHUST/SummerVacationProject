@@ -19,6 +19,9 @@
 #include "FindExpensesDayaByClass.h"
 #include "FindStudentDataById.h"
 #include "FindStudentDataByName.h"
+#include "InsertBuildingData.h"
+
+
 #include "LookAtBuildingData.h"
 #include "LookAtExpensesData.h"
 #include "LookAtExpensesData.h"

@@ -4,6 +4,7 @@
 INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_E_C_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
 	struct Student *studentHead;
 	struct Student *student;
@@ -48,13 +49,10 @@ INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wPa
 		switch (LOWORD(wParam)){
 		case IDC_F_E_C_SEARCH:{
 			ListView_DeleteAllItems(hListView);
-			HWND editBox = GetDlgItem(hDlg, IDC_F_E_C_EDIT);
-			LPWSTR classInfo = (LPWSTR)malloc(sizeof(LPWCH) * 11);
 			int count = 0;
-			GetWindowText((HWND)editBox, classInfo, 11);
-			char *classInfoString = (char*)malloc(sizeof(char) * 11);
-			USES_CONVERSION;
-			classInfoString = W2A(classInfo);
+			HWND editBox = GetDlgItem(hDlg, IDC_F_E_C_EDIT);
+			char *classInfoString = getDataFromEditBox(editBox, 11);
+			
 			if (strlen(classInfoString) == 0){
 				MessageBox(hDlg, L"请输入所信息的班级名称", L"提示", MB_OK);
 			}

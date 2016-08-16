@@ -21,8 +21,13 @@ struct Expenses* createExpensesData(
 	newExpenses->cost = cost;
 	strcpy(newExpenses->usage, usage);
 	strcpy(newExpenses->officer, officer);
+	if (nextExpenses == NULL){
+		newExpenses->nextRec = getID();
+	}
+	else{
+		newExpenses->nextRec = newExpenses->rec;
+	}
 	newExpenses->nextExpenses = nextExpenses;
 	newExpenses->rec = rec;
-	newExpenses->nextRec = getID();
 	return newExpenses;
 }

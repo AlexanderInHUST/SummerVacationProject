@@ -123,6 +123,9 @@
     <ClInclude Include="FillList.h">
       <Filter>头文件\Presenter</Filter>
     </ClInclude>
+    <ClInclude Include="InsertBuildingData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildingData.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="FillList.cpp">
       <Filter>源文件\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertBuildingData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

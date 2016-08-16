@@ -7,6 +7,7 @@ INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 	struct Building *building;
 	struct Student *student;
 	HWND hListView = GetDlgItem(hDlg, IDC_L_S_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;

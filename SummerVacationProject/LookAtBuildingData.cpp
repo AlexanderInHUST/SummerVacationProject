@@ -4,6 +4,7 @@
 INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_L_D_LIST);
+	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head;
 	struct Building *building;
 	switch (message){
@@ -55,10 +56,17 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 	}
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_L_D_NEW:{
+		    DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_I_B), hDlg, insertBuidlingDataProc);
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_D), GetParent(hDlg), LookAtBuildingDataProc);
+			return (INT_PTR)TRUE;
+		}
 		case IDC_L_D_CLOSE:{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
-			break;
 		}
 		}
 	}

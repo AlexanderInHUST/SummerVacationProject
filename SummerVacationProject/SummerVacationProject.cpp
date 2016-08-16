@@ -150,6 +150,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
+		case IDM_SAVE:{
+			saveAllData(head);
+			MessageBox(hWnd, L"保存成功", L"提示", MB_OK);
+			break;
+		}
 		case IDM_ABOUT:{
 			DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);

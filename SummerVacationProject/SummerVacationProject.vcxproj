@@ -93,6 +93,7 @@
     <ClInclude Include="FindExpensesDayaByClass.h" />
     <ClInclude Include="FindStudentDataById.h" />
     <ClInclude Include="FindStudentDataByName.h" />
+    <ClInclude Include="InsertBuildingData.h" />
     <ClInclude Include="load.h" />
     <ClInclude Include="LookAtBuildingData.h" />
     <ClInclude Include="LookAtExpensesData.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="FindExpensesDataByClass.cpp" />
     <ClCompile Include="FindStudentDataById.cpp" />
     <ClCompile Include="FindStudentDataByName.cpp" />
+    <ClCompile Include="InsertBuildingData.cpp" />
     <ClCompile Include="Load.cpp" />
     <ClCompile Include="LookAtBuildingData.cpp" />
     <ClCompile Include="LookAtExpensesData.cpp" />
