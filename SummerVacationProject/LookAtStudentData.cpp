@@ -3,7 +3,7 @@
 
 INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
-	struct Building *head;
+	struct Building *head = getHead();
 	struct Building *building;
 	struct Student *student;
 	HWND hListView = GetDlgItem(hDlg, IDC_L_S_LIST);
@@ -68,7 +68,6 @@ INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 		vcl.iSubItem = 0;
 		ListView_InsertColumn(hListView, 10, &vcl);
 		
-		head = getHead();
 		building = head;
 		int count = 0;
 		while (building->nextBuilding != NULL){
@@ -87,6 +86,21 @@ INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_L_S_NEW:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_I_S), hDlg, insertStudentDataProc);
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
+			return (INT_PTR)TRUE;
+		}
+		case IDC_L_S_DEL:{
+			deleteStudentData(head, hListView, hDlg);
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
+			break;
+		}
 		case IDC_L_S_CLOSE:{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;

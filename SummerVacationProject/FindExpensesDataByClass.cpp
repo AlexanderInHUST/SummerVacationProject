@@ -6,9 +6,10 @@ INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wPa
 	HWND hListView = GetDlgItem(hDlg, IDC_F_E_C_LIST);
 	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
-	struct Student *studentHead;
+	struct Student *studentHead = createStudentData("1", "2", '3', "4", "5", -1, "6", "7", "8", "9", "0", NULL, NULL, -1);;
 	struct Student *student;
 	struct Expenses *expenses;
+	char copyClass[20];
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;
@@ -52,27 +53,48 @@ INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wPa
 			int count = 0;
 			HWND editBox = GetDlgItem(hDlg, IDC_F_E_C_EDIT);
 			char *classInfoString = getDataFromEditBox(editBox, 11);
-			
+			strcpy(copyClass, classInfoString);
 			if (strlen(classInfoString) == 0){
 				MessageBox(hDlg, L"请输入所信息的班级名称", L"提示", MB_OK);
 			}
 			else{
-				studentHead = queryStudentListByClass(classInfoString, head);
+				struct Building *building = head;
+				struct Student *studentByClass;
+				struct Student *queryStudent;
+				studentByClass = studentHead;
+				while (building->nextBuilding != NULL){
+					building = building->nextBuilding;
+					queryStudent = building->firstStudent;
+					while (queryStudent->nextStudent != NULL){
+						queryStudent = queryStudent->nextStudent;
+						if (strcmp(queryStudent->clazz, copyClass) == 0){
+							struct Student *temp =
+								createStudentData(queryStudent->id, queryStudent->name, queryStudent->gender, queryStudent->birth, queryStudent->category, queryStudent->size, queryStudent->inTime, queryStudent->clazz, queryStudent->building, queryStudent->room, queryStudent->tel, queryStudent->firstExpenses, NULL, -1);
+							studentByClass->nextStudent = temp;
+							studentByClass = studentByClass->nextStudent;
+						}
+					}
+				}
 				student = studentHead;
-				if (studentHead == NULL){
+				if (studentHead->nextStudent == NULL){
 					MessageBox(hDlg, L"没有相应的班级信息", L"提示", MB_OK);
 				}
 				else{
+					bool found = false;
 					while (student->nextStudent != NULL){
 						student = student->nextStudent;
 						expenses = student->firstExpenses;
 						while (expenses->nextExpenses != NULL){
+							found = true;
 							expenses = expenses->nextExpenses;
 							LVITEM vitem;
 							vitem.mask = LVIF_TEXT;
 							vitem.iItem = count;
 							fillExpensesList(hListView, vitem, expenses, count++);
 						}
+					}
+					if (!found){
+						MessageBox(hDlg, L"没有相应的缴费信息", L"提示", MB_OK);
 					}
 				}
 			}

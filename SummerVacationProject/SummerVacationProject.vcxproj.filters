@@ -126,6 +126,15 @@
     <ClInclude Include="InsertBuildingData.h">
       <Filter>头文件\View</Filter>
     </ClInclude>
+    <ClInclude Include="InsertStudentData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertExpensesData.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Delete.h">
+      <Filter>头文件\Presenter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildingData.cpp">
@@ -199,6 +208,15 @@
     </ClCompile>
     <ClCompile Include="InsertBuildingData.cpp">
       <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertStudentData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertExpensesData.cpp">
+      <Filter>源文件\View\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Delete.cpp">
+      <Filter>源文件\Presenter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

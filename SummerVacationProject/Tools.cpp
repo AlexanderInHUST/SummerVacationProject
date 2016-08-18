@@ -3,8 +3,25 @@
 #include "time.h"
 #include "math.h"
 
+void initialID(){
+	FILE *file;
+	file = fopen("ID.dat", "w");
+	fprintf(file, "%d", time(NULL));
+	fclose(file);
+	return;
+}
+
 int getID(){
-	return rand()*rand()*rand();
+	FILE *rFile;
+	FILE *wFile;
+	int id;
+	rFile = fopen("ID.dat", "r");
+	fscanf(rFile, "%d", &id);
+	fclose(rFile);
+	wFile = fopen("ID.dat", "w");
+	fprintf(rFile, "%d", id + 1);
+	fclose(wFile);
+	return id;
 }
 
 char* intToString(int number){
@@ -59,10 +76,10 @@ LPWSTR charToLPWSTR(char ch){
 }
 
 char* getDataFromEditBox(HWND editBox, int length){
-	LPWSTR info = (LPWSTR)malloc(sizeof(LPWCH) * (length + 1));
+	LPWSTR info = (LPWSTR)malloc(sizeof(WCHAR) * (length + 1));
 	GetWindowText((HWND)editBox, info, length + 1);
 	char *stringInfo = (char*)malloc(sizeof(char) * length + 1);
 	USES_CONVERSION;
-	stringInfo = W2A(info);
+	stringInfo = T2A(info);
 	return stringInfo;
 }

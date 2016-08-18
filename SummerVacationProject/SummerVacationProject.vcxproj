@@ -86,6 +86,7 @@
     <ClInclude Include="CountDormitory.h" />
     <ClInclude Include="CountGender.h" />
     <ClInclude Include="CountIncome.h" />
+    <ClInclude Include="Delete.h" />
     <ClInclude Include="ExpensesData.h" />
     <ClInclude Include="FillList.h" />
     <ClInclude Include="FindBuildingData.h" />
@@ -94,6 +95,8 @@
     <ClInclude Include="FindStudentDataById.h" />
     <ClInclude Include="FindStudentDataByName.h" />
     <ClInclude Include="InsertBuildingData.h" />
+    <ClInclude Include="InsertExpensesData.h" />
+    <ClInclude Include="InsertStudentData.h" />
     <ClInclude Include="load.h" />
     <ClInclude Include="LookAtBuildingData.h" />
     <ClInclude Include="LookAtExpensesData.h" />
@@ -114,6 +117,7 @@
     <ClCompile Include="CountDormitory.cpp" />
     <ClCompile Include="CountGender.cpp" />
     <ClCompile Include="CountIncome.cpp" />
+    <ClCompile Include="Delete.cpp" />
     <ClCompile Include="ExpensesData.cpp" />
     <ClCompile Include="FillList.cpp" />
     <ClCompile Include="FindBuildingData.cpp" />
@@ -122,6 +126,8 @@
     <ClCompile Include="FindStudentDataById.cpp" />
     <ClCompile Include="FindStudentDataByName.cpp" />
     <ClCompile Include="InsertBuildingData.cpp" />
+    <ClCompile Include="InsertExpensesData.cpp" />
+    <ClCompile Include="InsertStudentData.cpp" />
     <ClCompile Include="Load.cpp" />
     <ClCompile Include="LookAtBuildingData.cpp" />
     <ClCompile Include="LookAtExpensesData.cpp" />

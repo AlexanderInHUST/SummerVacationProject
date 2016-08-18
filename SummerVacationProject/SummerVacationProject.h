@@ -20,18 +20,19 @@
 #include "FindStudentDataById.h"
 #include "FindStudentDataByName.h"
 #include "InsertBuildingData.h"
-
-
+#include "InsertStudentData.h"
+#include "InsertExpensesData.h"
 #include "LookAtBuildingData.h"
 #include "LookAtExpensesData.h"
 #include "LookAtExpensesData.h"
 #include "LookAtStudentData.h"
 
 //Presenter
-#include "Save.h"
+#include "Delete.h"
+#include "FillList.h"
 #include "load.h"
 #include "Query.h"
-#include "FillList.h"
+#include "Save.h"
 
 //Tools
 #include "Tools.h"

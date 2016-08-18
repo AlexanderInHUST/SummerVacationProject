@@ -6,8 +6,9 @@ struct Expenses* loadExpensesList(struct Student* student){
 	struct Expenses *preHead = createExpensesData("head", "head", "head", -1, "head", "head", NULL, 0);
 	struct Expenses *head = (struct Expenses*)malloc(sizeof(struct Expenses));
 	struct Expenses *p;
-	if ((file = fopen("data_of_expenses.dat", "r")) == NULL)
+	if ((file = fopen("data_of_expenses.dat", "r")) == NULL){
 		return NULL;
+	}
 	p = preHead;
 	preHead->nextExpenses = head;
 	preHead->nextRec = student->firstExpensesRec;
@@ -83,6 +84,10 @@ struct Building* loadAllData(){
 	struct Building *head;
 	head = loadBuildingList();
 	struct Building *building = head;
+	if (head == NULL){
+		head = createBuildingData("head", "head", "head", -1, -1, -1, NULL, NULL, 0);
+		return head;
+	}
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		building->firstStudent = loadStudentList(building);

@@ -3,7 +3,7 @@
 
 INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
-	struct Building *head;
+	struct Building *head = getHead();
 	struct Building *building;
 	struct Student *student;
 	struct Expenses *expenses;
@@ -45,7 +45,6 @@ INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 		ListView_InsertColumn(hListView, 5, &vcl);
 
 		int count = 0;
-		head = getHead();
 		building = head;
 		while (building->nextBuilding != NULL){
 			building = building->nextBuilding;
@@ -66,6 +65,21 @@ INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 	}
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_L_E_NEW:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_I_E), hDlg, insertExpensesDataProc);
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
+			return (INT_PTR)TRUE;
+		}
+		case IDC_L_E_DEL:{
+			deleteExpensesData(head, hListView, hDlg);
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
+			break;
+		}
 		case IDC_L_E_CLOSE:{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;

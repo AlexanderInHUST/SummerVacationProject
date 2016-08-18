@@ -3,11 +3,9 @@
 
 struct Building* queryBuilding(char num[5], struct Building *head){
 	struct Building *p = head;
-	char innerNum[5];
-	strcpy(innerNum, num);
 	while (p->nextBuilding != NULL){
 		p = p->nextBuilding;
-		if (strcmp(p->num, innerNum) == 0){
+		if (strcmp(p->num, num) == 0){
 			return p;
 		}
 	}
@@ -17,14 +15,12 @@ struct Building* queryBuilding(char num[5], struct Building *head){
 struct Student* queryStudentById(char id[12], struct Building *head){
 	struct Building *building = head;
 	struct Student *student;
-	char innerId[12];
-	strcpy(innerId, id);
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
 			student = student->nextStudent;
-			if (strcmp(student->id, innerId) == 0){
+			if (strcmp(student->id, id) == 0){
 				return student;
 			}
 		}
@@ -57,42 +53,5 @@ struct Student* queryStudentListByName(char name[12], struct Building *head){
 		}
 	}
 	return (exist == false) ? NULL : headStudentByName;
-}
-
-struct Student* queryStudentListByClass(char clazz[10], struct Building *head){
-	struct Building *building = head;
-	struct Student *student;
-	struct Student *studentByClass;
-	struct Student *headStudentByClass;
-	char innerClazz[10];
-	bool exist = false;
-	strcpy(innerClazz, clazz);
-	studentByClass = (struct Student*)malloc(sizeof(struct Student));
-	headStudentByClass = studentByClass;
-	while (building->nextBuilding != NULL){
-		building = building->nextBuilding;
-		student = building->firstStudent;
-		while (student->nextStudent != NULL){
-			student = student->nextStudent;
-			if (strcmp(student->clazz, innerClazz) == 0){
-				exist = true;
-				struct Student *temp =
-					createStudentData(student->id, student->name, student->gender, student->birth, student->category, student->size, student->inTime, student->clazz, student->building, student->room, student->tel, student->firstExpenses, NULL, -1);
-				studentByClass->nextStudent = temp;
-				studentByClass = studentByClass->nextStudent;
-			}
-		}
-	}
-	return (exist == false) ? NULL : headStudentByClass;
-}
-
-struct Expenses* queryHeadExpensesByStudent(char id[12], struct Building *head){
-	struct Student* student = queryStudentById(id, head);
-	if (student == NULL || student->firstExpenses == NULL){
-		return NULL;
-	}
-	else{
-		return student->firstExpenses;
-	}
 }
 

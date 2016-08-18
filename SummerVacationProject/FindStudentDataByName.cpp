@@ -6,8 +6,9 @@ INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wPara
 	HWND hListView = GetDlgItem(hDlg, IDC_F_S_N_LIST);
 	ListView_SetExtendedListViewStyle(hListView, LVS_EX_FULLROWSELECT);
 	struct Building *head = getHead();
-	struct Student *headStudent;
+	struct Student *headStudent = createStudentData("1", "2" , '3', "4", "5", -1, "7", "8", "9", "0", "a", NULL, NULL, -1);
 	struct Student *student;
+	char copyName[12];
 	switch (message){
 	case WM_INITDIALOG:{
 		LVCOLUMN vcl;
@@ -77,14 +78,31 @@ INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wPara
 			int count = 0;
 			char *nameInfoString;
 			nameInfoString = getDataFromEditBox(editBox, 11);
+			strcpy(copyName, nameInfoString);
 			if (strlen(nameInfoString) == 0){
 				MessageBox(hDlg, L"请输入姓名", L"提示", MB_OK);
 			}
 			else{
-				headStudent = queryStudentListByName(nameInfoString, head);
+				struct Building *building = head;
+				struct Student *studentByName;
+				struct Student *queryStudent;
+				studentByName = headStudent;
+				while (building->nextBuilding != NULL){
+					building = building->nextBuilding;
+					queryStudent = building->firstStudent;
+					while (queryStudent->nextStudent != NULL){
+						queryStudent = queryStudent->nextStudent;
+						if (strcmp(queryStudent->name, copyName) == 0){
+							struct Student *temp =
+								createStudentData(queryStudent->id, queryStudent->name, queryStudent->gender, queryStudent->birth, queryStudent->category, queryStudent->size, queryStudent->inTime, queryStudent->clazz, queryStudent->building, queryStudent->room, queryStudent->tel, queryStudent->firstExpenses, NULL, -1);
+							studentByName->nextStudent = temp;
+							studentByName = studentByName->nextStudent;
+						}
+					}
+				}
 				student = headStudent;
 				if (headStudent == NULL){
-					MessageBox(hDlg, L"没有相应的班级信息", L"提示", MB_OK);
+					MessageBox(hDlg, L"没有相应的学生信息", L"提示", MB_OK);
 				}
 				else{
 					while (student->nextStudent != NULL){
