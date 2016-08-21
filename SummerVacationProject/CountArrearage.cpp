@@ -29,6 +29,13 @@ INT_PTR CALLBACK CountArrearageProc(HWND hDlg, UINT message, WPARAM wParam, LPAR
 		vcl.cx = 100;
 		vcl.iSubItem = 0;
 		ListView_InsertColumn(hListView, 3, &vcl);
+
+		LVITEM vitem;
+		vitem.mask = LVIF_TEXT;
+		vitem.iItem = 0;
+		if (fillCountArrearage(hListView, vitem) == 0){
+			MessageBox(hDlg, L"没有任何欠费信息", L"提示", MB_OK);
+		}
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:{

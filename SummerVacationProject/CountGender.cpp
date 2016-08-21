@@ -24,6 +24,10 @@ INT_PTR CALLBACK CountGenderProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 		vcl.cx = 170;
 		vcl.iSubItem = 0;
 		ListView_InsertColumn(hListView, 2, &vcl);
+
+		LVITEM vitem;
+		vitem.mask = LVIF_TEXT;
+		fillCountGender(hListView, vitem);
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:{

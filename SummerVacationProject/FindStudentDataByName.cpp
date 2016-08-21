@@ -10,7 +10,7 @@ INT_PTR CALLBACK FindStudentDataByNameProc(HWND hDlg, UINT message, WPARAM wPara
 	struct Student *student;
 	char copyName[12];
 	switch (message){
-	case WM_INITDIALOG:{
+	case  WM_INITDIALOG:{
 		LVCOLUMN vcl;
 		vcl.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
 		//Ñ§ºÅ

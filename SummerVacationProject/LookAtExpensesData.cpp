@@ -73,6 +73,19 @@ INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 				MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
 			return (INT_PTR)TRUE;
 		}
+		case IDC_L_E_EDIT:{
+			if (setExpensesCondition(hListView) == -1){
+				MessageBox(hDlg, L"请选中一条信息", L"提示", MB_OK);
+			}
+			else{
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_E_E), hDlg, editExpensesDataProc);
+			}
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
+			return (INT_PTR)TRUE;
+		}
 		case IDC_L_E_DEL:{
 			deleteExpensesData(head, hListView, hDlg);
 			EndDialog(hDlg, LOWORD(wParam));

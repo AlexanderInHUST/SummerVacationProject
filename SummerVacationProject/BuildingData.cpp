@@ -20,7 +20,7 @@ struct Building* createBuildingData(
 	strcpy(newBuilding->administrator, administrator);
 	strcpy(newBuilding->tel, tel);
 	newBuilding->rooms = rooms;
-	newBuilding->beds = beds;
+	newBuilding->beds = rooms * beds;
 	newBuilding->cost = cost;
 	if (firstStudent == NULL){
 		newBuilding->firstStudentRec = getID();

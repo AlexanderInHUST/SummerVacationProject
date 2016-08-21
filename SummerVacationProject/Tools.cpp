@@ -83,3 +83,10 @@ char* getDataFromEditBox(HWND editBox, int length){
 	stringInfo = T2A(info);
 	return stringInfo;
 }
+
+void setDataToEditBox(HWND editBox, char* resource){
+	LPWSTR info = (LPWSTR)malloc(sizeof(WCHAR) * (strlen(resource) + 1));
+	USES_CONVERSION;
+	info = A2T(resource);
+	SetWindowText(editBox, info);
+}

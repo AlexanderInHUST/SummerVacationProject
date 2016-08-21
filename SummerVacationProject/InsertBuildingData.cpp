@@ -30,7 +30,7 @@ INT_PTR CALLBACK insertBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 			char *roomInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(roomInfo, getDataFromEditBox(roomEditBox, 20));
 			char *bedInfo = (char*)malloc(sizeof(char) * 21);
-			strcpy(bedInfo,	getDataFromEditBox(roomEditBox, 20));
+			strcpy(bedInfo,	getDataFromEditBox(bedEditBox, 20));
 			char *costInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(costInfo, getDataFromEditBox(costEditBox, 20));
 			if (strlen(numInfo) == 0 || strlen(adminInfo) == 0 || strlen(telInfo) == 0 ||

@@ -78,3 +78,90 @@ void fillExpensesList(HWND hListView, LVITEM vitem, struct Expenses *expenses, i
 	vitem.iSubItem = 5;
 	ListView_SetItem(hListView, &vitem);
 }
+
+int fillCountArrearage(HWND hListView, LVITEM vitem){
+	struct Building *head = getHead();
+	struct Building *building;
+	struct Student *student;
+	int count = 0;
+	float arrearage;
+	building = head;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		student = building->firstStudent;
+		while (student->nextStudent != NULL){
+			student = student->nextStudent;
+			arrearage = countArrearage(student);
+			if ((int)arrearage != -100){
+				count++;
+				vitem.pszText = stringToLPWSTR(student->id);
+				vitem.iSubItem = 0;
+				ListView_InsertItem(hListView, &vitem);
+				vitem.pszText = stringToLPWSTR(student->name);
+				vitem.iSubItem = 1;
+				ListView_SetItem(hListView, &vitem);
+				vitem.pszText = stringToLPWSTR(student->building);
+				vitem.iSubItem = 2;
+				ListView_SetItem(hListView, &vitem);
+				vitem.pszText = stringToLPWSTR(floatToString(arrearage));
+				vitem.iSubItem = 3;
+				ListView_SetItem(hListView, &vitem);
+			}
+		}
+	}
+	return count;
+}
+
+int fillCountDormitory(HWND hListView, LVITEM vitem){
+	struct Building *head = getHead();
+	struct Building *building;
+	int num = 0;
+	building = head;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		num = countDormitory(building);
+		vitem.pszText = stringToLPWSTR(building->num);
+		vitem.iSubItem = 0;
+		ListView_InsertItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(intToString(building->beds - num));
+		vitem.iSubItem = 1;
+		ListView_SetItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(intToString(num));
+		vitem.iSubItem = 2;
+		ListView_SetItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(intToString(building->beds - num));
+		vitem.iSubItem = 3;
+		ListView_SetItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(floatToString((float)num / (float)building->beds * 100));
+		vitem.iSubItem = 4;
+		ListView_SetItem(hListView, &vitem);
+	}
+	return 1;
+}
+
+int fillCountGender(HWND hListView, LVITEM vitem){
+	float male;
+	float female;
+	char categories[3][10] = { "本科", "硕士", "博士" };
+	for (int i = 0; i < 3; i++){
+		vitem.iItem = i;
+		male = countGender(categories[i]);
+		if ((int)male == -100){
+			male = 0;
+			female = 0;
+		}
+		else{
+			female = 1 - male;
+		}
+		vitem.pszText = stringToLPWSTR(categories[i]);
+		vitem.iSubItem = 0;
+		ListView_InsertItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(floatToString(male * 100));
+		vitem.iSubItem = 1;
+		ListView_SetItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(floatToString(female * 100));
+		vitem.iSubItem = 2;
+		ListView_SetItem(hListView, &vitem);
+	}
+	return 1;
+}

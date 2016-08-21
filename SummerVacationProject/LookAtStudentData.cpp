@@ -94,6 +94,19 @@ INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 				MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
 			return (INT_PTR)TRUE;
 		}
+		case IDC_L_S_EDIT:{
+			if (setStudentCondition(hListView) == -1){
+				MessageBox(hDlg, L"请选中一条信息", L"提示", MB_OK);
+			}
+			else{
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_E_S), hDlg, editStudentDataProc);
+			}
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
+			return (INT_PTR)TRUE;
+		}
 		case IDC_L_S_DEL:{
 			deleteStudentData(head, hListView, hDlg);
 			EndDialog(hDlg, LOWORD(wParam));

@@ -63,6 +63,19 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 				MAKEINTRESOURCE(IDD_L_D), GetParent(hDlg), LookAtBuildingDataProc);
 			return (INT_PTR)TRUE;
 		}
+		case IDC_L_D_EDIT:{
+			if (setBuildingCondition(hListView) == -1){
+				MessageBox(hDlg, L"请选中一条信息", L"提示", MB_OK);
+			}
+			else{
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_E_B), hDlg, editBuidlingDataProc);
+			}
+			EndDialog(hDlg, LOWORD(wParam));
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_L_D), GetParent(hDlg), LookAtBuildingDataProc);
+			return (INT_PTR)TRUE;
+		}
 		case IDC_L_D_DEL:{
 			deleteBuildingData(head, hListView, hDlg);
 			EndDialog(hDlg, LOWORD(wParam));
