@@ -16,6 +16,21 @@ INT_PTR CALLBACK insertExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 	}
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
+		case IDC_I_E_GETID:{
+			HWND idEditBox = GetDlgItem(hDlg, IDC_I_E_ID);
+			HWND nameEditBox = GetDlgItem(hDlg, IDC_I_E_NAME);
+			char *idInfo = (char*)malloc(sizeof(char) * 13);
+			setDataToEditBox(nameEditBox, "");
+			strcpy(idInfo, getDataFromEditBox(idEditBox, 12));
+			struct Student *temp = queryStudentById(idInfo, head);
+			if (temp == NULL){
+				MessageBox(hDlg, L"该学号没有注册", L"提示", MB_OK);
+			}
+			else{
+				setDataToEditBox(nameEditBox, temp->name);
+			}
+			break;
+		}
 		case IDC_I_E_OK:{
 			HWND idEditBox = GetDlgItem(hDlg, IDC_I_E_ID);
 			HWND nameEditBox = GetDlgItem(hDlg, IDC_I_E_NAME);

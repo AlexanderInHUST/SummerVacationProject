@@ -56,23 +56,28 @@ INT_PTR CALLBACK insertStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 				MessageBox(hDlg, L"请填完所有的数据", L"提示", MB_OK);
 			}
 			else{
-				bool found = false;
-				while (building->nextBuilding != NULL){
-					building = building->nextBuilding;
-					if (strcmp(building->num, buildingInfo) == 0){
-						found = true;
-						student = building->firstStudent;
-						while (student->nextStudent != NULL){
-							student = student->nextStudent;
+				if (queryStudentById(idInfo, head) != NULL){
+					MessageBox(hDlg, L"此学号已被登记", L"提示", MB_OK);
+				} 
+				else{
+					bool found = false;
+					while (building->nextBuilding != NULL){
+						building = building->nextBuilding;
+						if (strcmp(building->num, buildingInfo) == 0){
+							found = true;
+							student = building->firstStudent;
+							while (student->nextStudent != NULL){
+								student = student->nextStudent;
+							}
+							struct Student *newStudent = createStudentData(idInfo, nameInfo, genderInfo[0], birthInfo, categoryInfo, atoi(sizeInfo), intimeInfo, classInfo, buildingInfo, roomInfo, telInfo, NULL, NULL, student->nextRec);
+							student->nextStudent = newStudent;
+							MessageBox(hDlg, L"添加成功", L"提示", MB_OK);
+							EndDialog(hDlg, LOWORD(wParam));
 						}
-						struct Student *newStudent = createStudentData(idInfo, nameInfo, genderInfo[0], birthInfo, categoryInfo, atoi(sizeInfo), intimeInfo, classInfo, buildingInfo, roomInfo, telInfo, NULL, NULL, student->nextRec);
-						student->nextStudent = newStudent;
-						MessageBox(hDlg, L"添加成功", L"提示", MB_OK);
-						EndDialog(hDlg, LOWORD(wParam));
 					}
-				}
-				if (!found){
-					MessageBox(hDlg, L"没有所输入的宿舍楼信息", L"提示", MB_OK);
+					if (!found){
+						MessageBox(hDlg, L"没有所输入的宿舍楼信息", L"提示", MB_OK);
+					}
 				}
 			}
 			break;

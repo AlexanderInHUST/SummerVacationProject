@@ -78,9 +78,12 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 				MessageBox(hDlg, L"请填完所有的数据", L"提示", MB_OK);
 			}
 			else{
+				bool done = false;
 				while (building->nextBuilding != NULL){
 					building = building->nextBuilding;
 					student = building->firstStudent;
+					if (done)
+						break;
 					while (student->nextStudent != NULL){
 						student = student->nextStudent;
 						if (strcmp(student->id, condition) == 0){
@@ -92,11 +95,48 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 							student->size = atoi(sizeInfo);
 							strcpy(student->inTime, intimeInfo);
 							strcpy(student->clazz, classInfo);
+							if (strcmp(buildingInfo, student->building) != 0){
+								struct Building *tempHead = getHead();
+								struct Building *tempBuilding = tempHead;
+								struct Student *tempStudent;
+								struct Student *copyStudent;
+								while (tempBuilding->nextBuilding != NULL){
+									tempBuilding = tempBuilding->nextBuilding;
+									if (strcmp(tempBuilding->num, student->building) == 0){
+										tempStudent = tempBuilding->firstStudent;
+										while (tempStudent->nextStudent != NULL){
+											if (strcmp(tempStudent->nextStudent->id, student->id) == 0){
+												copyStudent = tempStudent->nextStudent;
+												tempStudent->nextStudent = copyStudent->nextStudent;
+												tempStudent->nextRec = copyStudent->nextRec;
+												copyStudent->nextStudent = NULL;
+												copyStudent->nextRec = getID();
+												break;
+											}
+											tempStudent = tempStudent->nextStudent;
+										}
+									}
+								}
+								tempBuilding = tempHead;
+								while (tempBuilding->nextBuilding != NULL){
+									tempBuilding = tempBuilding->nextBuilding;
+									if (strcmp(tempBuilding->num, buildingInfo) == 0){
+										tempStudent = tempBuilding->firstStudent;
+										while (tempStudent->nextStudent != NULL){
+											tempStudent = tempStudent->nextStudent;
+										}
+										tempStudent->nextStudent = copyStudent;
+										tempStudent->nextRec = copyStudent->rec;
+									}
+								}
+							}
 							strcpy(student->building, buildingInfo);
 							strcpy(student->room, roomInfo);
 							strcpy(student->tel, telInfo);
 							MessageBox(hDlg, L"修改成功", L"提示", MB_OK);
 							EndDialog(hDlg, LOWORD(wParam));
+							done = true;
+							break;
 						}
 					}
 				}

@@ -19,6 +19,10 @@ INT_PTR CALLBACK CountIncomeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 		vcl.cx = 300;
 		vcl.iSubItem = 0;
 		ListView_InsertColumn(hListView, 1, &vcl);
+
+		LVITEM vitem;
+		vitem.mask = LVIF_TEXT;
+		fillCountIncome(hListView, vitem);
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:{

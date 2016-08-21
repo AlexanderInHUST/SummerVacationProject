@@ -7,3 +7,4 @@ void fillExpensesList(HWND hListView, LVITEM vitem, struct Expenses *expenses, i
 int fillCountArrearage(HWND hListView, LVITEM vitem);
 int fillCountDormitory(HWND hListView, LVITEM vitem);
 int fillCountGender(HWND hListView, LVITEM vitem);
+int fillCountIncome(HWND hListView, LVITEM vitem);

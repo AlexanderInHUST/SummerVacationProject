@@ -61,6 +61,7 @@ INT_PTR CALLBACK editBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 						building->cost = atof(costInfo);
 						MessageBox(hDlg, L"修改成功", L"提示", MB_OK);
 						EndDialog(hDlg, LOWORD(wParam));
+						break;
 					}
 				}
 			}

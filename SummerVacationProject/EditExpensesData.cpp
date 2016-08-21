@@ -69,6 +69,7 @@ INT_PTR CALLBACK editExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 								strcpy(expenses->officer, officerInfo);
 								MessageBox(hDlg, L"修改成功", L"提示", MB_OK);
 								EndDialog(hDlg, LOWORD(wParam));
+								break;
 							}
 						}
 					}

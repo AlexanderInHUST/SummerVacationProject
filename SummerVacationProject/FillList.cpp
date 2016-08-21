@@ -165,3 +165,23 @@ int fillCountGender(HWND hListView, LVITEM vitem){
 	}
 	return 1;
 }
+
+int fillCountIncome(HWND hListView, LVITEM vitem){
+	struct Building *head = getHead();
+	struct Building *building;
+	int count = 0;
+	building = head;
+	float cost;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		cost = countIncome(building);
+		vitem.iItem = count++;
+		vitem.pszText = stringToLPWSTR(building->num);
+		vitem.iSubItem = 0;
+		ListView_InsertItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(floatToString(cost));
+		vitem.iSubItem = 1;
+		ListView_SetItem(hListView, &vitem);
+	}
+	return 1;
+}

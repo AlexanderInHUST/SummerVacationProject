@@ -48,6 +48,7 @@ float countGender(char *size){
 		building = building->nextBuilding;
 		student = building->firstStudent;
 		while (student->nextStudent != NULL){
+			student = student->nextStudent;
 			if (strcmp(student->category, size) == 0){
 				found = true;
 				amount++;
@@ -55,8 +56,19 @@ float countGender(char *size){
 					male++;
 				}
 			}
-			student = student->nextStudent;
 		}
 	}
 	return (found) ? (float)male / (float)amount : -100;
+}
+
+float countIncome(struct Building *buildingInfo){
+	struct Building *head = getHead();
+	struct Building *building;
+	building = head;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		if (strcmp(buildingInfo->num, building->num) == 0){
+			return countDormitory(buildingInfo) * building->cost;
+		}
+	}
 }
