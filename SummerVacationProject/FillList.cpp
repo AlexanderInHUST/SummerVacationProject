@@ -115,26 +115,46 @@ int fillCountArrearage(HWND hListView, LVITEM vitem){
 int fillCountDormitory(HWND hListView, LVITEM vitem){
 	struct Building *head = getHead();
 	struct Building *building;
+	struct countDocumentory *headOfArray;
+	struct countDocumentory *array;
 	int num = 0;
+	int amount = 0;
+	building = head;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		amount++;
+	}
+	headOfArray = (struct countDocumentory*)malloc(sizeof(struct countDocumentory) * amount);
+	array = headOfArray;
 	building = head;
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		num = countDormitory(building);
-		vitem.pszText = stringToLPWSTR(building->num);
+		array->ratio = (float)num / (float)building->beds * 100;
+		array->occupied = num;
+		array->amount = building->beds;
+		strcpy(array->num, building->num);
+		array++;
+	}
+	qsort(headOfArray, amount, sizeof(struct countDocumentory), cmp);
+	array = headOfArray;
+	for (int i = 0; i < amount; i++){
+		vitem.pszText = stringToLPWSTR(array->num);
 		vitem.iSubItem = 0;
 		ListView_InsertItem(hListView, &vitem);
-		vitem.pszText = stringToLPWSTR(intToString(building->beds - num));
+		vitem.pszText = stringToLPWSTR(intToString(array->amount - array->occupied));
 		vitem.iSubItem = 1;
 		ListView_SetItem(hListView, &vitem);
-		vitem.pszText = stringToLPWSTR(intToString(num));
+		vitem.pszText = stringToLPWSTR(intToString(array->occupied));
 		vitem.iSubItem = 2;
 		ListView_SetItem(hListView, &vitem);
-		vitem.pszText = stringToLPWSTR(intToString(building->beds - num));
+		vitem.pszText = stringToLPWSTR(intToString(array->amount - array->occupied));
 		vitem.iSubItem = 3;
 		ListView_SetItem(hListView, &vitem);
-		vitem.pszText = stringToLPWSTR(floatToString((float)num / (float)building->beds * 100));
+		vitem.pszText = stringToLPWSTR(floatToString(array->ratio));
 		vitem.iSubItem = 4;
 		ListView_SetItem(hListView, &vitem);
+		array++;
 	}
 	return 1;
 }

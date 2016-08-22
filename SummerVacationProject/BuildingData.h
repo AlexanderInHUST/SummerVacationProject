@@ -26,3 +26,10 @@ struct Building* createBuildingData(
 	struct Student *firstStudent,
 	struct Building *nextBuilding,
 	int rec);
+
+struct countDocumentory{
+	char num[10];
+	int amount;
+	int occupied;
+	float ratio;
+};
