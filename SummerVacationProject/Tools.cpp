@@ -92,9 +92,9 @@ void setDataToEditBox(HWND editBox, char* resource){
 }
 
 int cmp(const void *a, const void *b){
-	if ((((struct countDocumentory*)a)->ratio - ((struct countDocumentory*)b)->ratio) > 0)
+	if ((((struct countDocumentory*)a)->ratio * 1000 - ((struct countDocumentory*)b)->ratio * 1000) > 0)
 		return 1;
-	else if ((((struct countDocumentory*)a)->ratio - ((struct countDocumentory*)b)->ratio) < 0)
+	else if ((((struct countDocumentory*)a)->ratio * 1000 - ((struct countDocumentory*)b)->ratio * 1000) < 0)
 		return -1;
 	else
 		return 0;

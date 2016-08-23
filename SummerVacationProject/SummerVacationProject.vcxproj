@@ -156,6 +156,8 @@
     <ResourceCompile Include="SummerVacationProject.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="background.bmp" />
+    <Image Include="icon1.ico" />
     <Image Include="small.ico" />
     <Image Include="SummerVacationProject.ico" />
   </ItemGroup>

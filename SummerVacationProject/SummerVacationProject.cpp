@@ -10,6 +10,8 @@
 HINSTANCE hInst;								// 当前实例
 TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
+BITMAP bminfo;
+HBITMAP hbm;
 
 struct Building *head;
 
@@ -37,10 +39,13 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 	HACCEL hAccelTable;
 
+
 	// 初始化全局字符串
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_SUMMERVACATIONPROJECT, szWindowClass, MAX_LOADSTRING);
 	initialID();
+	hbm = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP));
+	GetObject(hbm, sizeof(bminfo), &bminfo);
 	head = createBuildingData("head", "head", "head", -1, -1, -1, NULL, NULL, 0);
 	MyRegisterClass(hInstance);
 
@@ -77,6 +82,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 {
 	WNDCLASSEX wcex;
 
+
 	wcex.cbSize = sizeof(WNDCLASSEX);
 
 	wcex.style			= CS_HREDRAW | CS_VREDRAW;
@@ -110,8 +116,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hInst = hInstance; // 将实例句柄存储在全局变量中
 
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW^WS_THICKFRAME,
+      CW_USEDEFAULT, 0, bminfo.bmWidth + 20, bminfo.bmHeight + 81, NULL, NULL, hInstance, NULL);
 
    if (!hWnd)
    {
@@ -225,12 +231,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 		break;
-	case WM_PAINT:
+	case WM_PAINT:{
 		hdc = BeginPaint(hWnd, &ps);
-		// TODO:  在此添加任意绘图代码...
-		DrawText(ps.hdc, L"haiya", -1, &(ps.rcPaint), DT_CENTER);
+		HDC memdc = CreateCompatibleDC(hdc);
+		SelectObject(memdc, hbm);
+		BitBlt(hdc, 0, 0, bminfo.bmWidth, bminfo.bmHeight, memdc, 0, 0, SRCCOPY);
+		DeleteDC(memdc);
 		EndPaint(hWnd, &ps);
 		break;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
