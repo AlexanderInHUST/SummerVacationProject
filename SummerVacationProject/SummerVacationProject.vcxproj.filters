@@ -150,6 +150,9 @@
     <ClInclude Include="Count.h">
       <Filter>头文件\Presenter</Filter>
     </ClInclude>
+    <ClInclude Include="CountClass.h">
+      <Filter>头文件\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuildingData.cpp">
@@ -247,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="Count.cpp">
       <Filter>源文件\Presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="CountClass.cpp">
+      <Filter>源文件\View\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

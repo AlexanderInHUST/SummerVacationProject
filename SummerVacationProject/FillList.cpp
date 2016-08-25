@@ -162,8 +162,8 @@ int fillCountDormitory(HWND hListView, LVITEM vitem){
 int fillCountGender(HWND hListView, LVITEM vitem){
 	float male;
 	float female;
-	char categories[3][10] = { "本科", "硕士", "博士" };
-	for (int i = 0; i < 3; i++){
+	char categories[4][10] = { "专科", "本科", "硕士", "博士" };
+	for (int i = 0; i < 4; i++){
 		vitem.iItem = i;
 		male = countGender(categories[i]);
 		if ((int)male == -100){
@@ -204,4 +204,25 @@ int fillCountIncome(HWND hListView, LVITEM vitem){
 		ListView_SetItem(hListView, &vitem);
 	}
 	return 1;
+}
+
+int fillCountClass(HWND hListView, LVITEM vitem){
+	struct CountClass *head = countClass();
+	struct CountClass *countClass;
+	countClass = head;
+	int count = 0;
+	while (countClass->next != NULL){
+		countClass = countClass->next;
+		vitem.iItem = count++;
+		vitem.pszText = stringToLPWSTR(countClass->clazz);
+		vitem.iSubItem = 0;
+		ListView_InsertItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(intToString(countClass->num));
+		vitem.iSubItem = 1;
+		ListView_SetItem(hListView, &vitem);
+		vitem.pszText = stringToLPWSTR(intToString(countClass->arrearage));
+		vitem.iSubItem = 2;
+		ListView_SetItem(hListView, &vitem);
+	}
+	return 0;
 }

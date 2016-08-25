@@ -72,3 +72,45 @@ float countIncome(struct Building *buildingInfo){
 		}
 	}
 }
+
+struct CountClass* countClass(){
+	struct CountClass* classHead;
+	struct CountClass* countClass;
+	struct Building* head;
+	struct Building* building;
+	struct Student* student;
+	head = getHead();
+	classHead = (struct CountClass*)malloc(sizeof(struct CountClass));
+	classHead->next = NULL;
+	countClass = classHead;
+	building = head;
+	while (building->nextBuilding != NULL){
+		building = building->nextBuilding;
+		student = building->firstStudent;
+		while (student->nextStudent != NULL){
+			student = student->nextStudent;
+			countClass = classHead;
+			bool found = false;
+			while (countClass->next != NULL){
+				countClass = countClass->next;
+				if (strcmp(countClass->clazz, student->clazz) == 0){
+					found = true;
+					countClass->num++;
+					if (countArrearage(student) != -100){
+						countClass->arrearage++;
+					}
+				}
+			}
+			if (!found){
+				struct CountClass *temp = (struct CountClass*)malloc(sizeof(struct CountClass));
+				strcpy(temp->clazz, student->clazz);
+				temp->num = 1;
+				temp->arrearage = (countArrearage(student) == -100) ? 0 : 1;
+				countClass->next = temp;
+				countClass = countClass->next;
+				countClass->next = NULL;
+			}
+		}
+	}
+	return classHead;
+}

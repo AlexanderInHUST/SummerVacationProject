@@ -8,3 +8,4 @@ int fillCountArrearage(HWND hListView, LVITEM vitem);
 int fillCountDormitory(HWND hListView, LVITEM vitem);
 int fillCountGender(HWND hListView, LVITEM vitem);
 int fillCountIncome(HWND hListView, LVITEM vitem);
+int fillCountClass(HWND hListView, LVITEM vitem);

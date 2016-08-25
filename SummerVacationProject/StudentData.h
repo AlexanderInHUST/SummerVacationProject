@@ -36,3 +36,10 @@ struct Student* createStudentData(
 	struct Expenses *firstExpenses,
 	struct Student *nextStudent,
 	int rec);
+
+struct CountClass{
+	char clazz[10];
+	int num;
+	int arrearage;
+	struct CountClass *next;
+};

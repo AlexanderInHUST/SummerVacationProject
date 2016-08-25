@@ -227,6 +227,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MAKEINTRESOURCE(IDD_S_I), hWnd, CountIncomeProc);
 			break;
 		}
+		case IDM_S_C:{
+			DialogBox(GetModuleHandle(NULL),
+				MAKEINTRESOURCE(IDD_S_C), hWnd, CountClassProc);
+			break;
+		}
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}

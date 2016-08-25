@@ -21,7 +21,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -84,6 +84,7 @@
     <ClInclude Include="BuildingData.h" />
     <ClInclude Include="Count.h" />
     <ClInclude Include="CountArrearage.h" />
+    <ClInclude Include="CountClass.h" />
     <ClInclude Include="CountDormitory.h" />
     <ClInclude Include="CountGender.h" />
     <ClInclude Include="CountIncome.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="BuildingData.cpp" />
     <ClCompile Include="Count.cpp" />
     <ClCompile Include="CountArrearage.cpp" />
+    <ClCompile Include="CountClass.cpp" />
     <ClCompile Include="CountDormitory.cpp" />
     <ClCompile Include="CountGender.cpp" />
     <ClCompile Include="CountIncome.cpp" />

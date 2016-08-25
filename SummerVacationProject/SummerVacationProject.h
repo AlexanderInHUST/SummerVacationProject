@@ -14,6 +14,7 @@
 #include "CountDormitory.h"
 #include "CountGender.h"
 #include "CountIncome.h"
+#include "CountClass.h"
 #include "EditBuildingData.h"
 #include "EditStudentData.h"
 #include "EditExpensesData.h"
