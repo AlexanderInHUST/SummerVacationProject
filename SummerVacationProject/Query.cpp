@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// queryBuilding函数介绍
+// 功能：搜索楼号是num的宿舍楼信息
+// 返回值：得到的地址或者NULL
+
 struct Building* queryBuilding(char num[5], struct Building *head){
 	struct Building *p = head;
 	while (p->nextBuilding != NULL){
@@ -11,6 +15,10 @@ struct Building* queryBuilding(char num[5], struct Building *head){
 	}
 	return NULL;
 }
+
+// queryStudentById函数介绍
+// 功能：搜索学号是id的学生信息
+// 返回值：得到的地址或者NULL
 
 struct Student* queryStudentById(char id[12], struct Building *head){
 	struct Building *building = head;
@@ -27,6 +35,10 @@ struct Student* queryStudentById(char id[12], struct Building *head){
 	}
 	return NULL;
 }
+
+// queryStudentById函数介绍
+// 功能：搜索姓名是name的学生信息，并且将得到的数据构成一个链表
+// 返回值：得到链表的头结点的地址或者NULL
 
 struct Student* queryStudentListByName(char name[12], struct Building *head){
 	struct Building *building = head;

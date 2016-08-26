@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// FindBuildingDataProc函数介绍
+// 功能：控制关于查询宿舍楼对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK FindBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_D_LIST);

@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// fillBuildingList函数介绍
+// 功能：将传入的宿舍楼信息添加到传入中的hListView中并显示
+// 返回值：无
+
 void fillBuildingList(HWND hListView, LVITEM vitem, struct Building *building, int count){
 	vitem.pszText = stringToLPWSTR(building->num);
 	vitem.iSubItem = 0;
@@ -21,6 +25,10 @@ void fillBuildingList(HWND hListView, LVITEM vitem, struct Building *building, i
 	vitem.iSubItem = 5;
 	ListView_SetItem(hListView, &vitem);
 }
+
+// fillBuildingList函数介绍
+// 功能：将传入的学生信息添加到传入中的hListView中并显示
+// 返回值：无
 
 void fillStudentList(HWND hListView, LVITEM vitem, struct Student *student, int count){
 	vitem.pszText = stringToLPWSTR(student->id);
@@ -58,6 +66,10 @@ void fillStudentList(HWND hListView, LVITEM vitem, struct Student *student, int 
 	ListView_SetItem(hListView, &vitem);
 }
 
+// fillBuildingList函数介绍
+// 功能：将传入的缴费信息添加到传入中的hListView中并显示
+// 返回值：无
+
 void fillExpensesList(HWND hListView, LVITEM vitem, struct Expenses *expenses, int count){
 	vitem.pszText = stringToLPWSTR(expenses->id);
 	vitem.iSubItem = 0;
@@ -78,6 +90,10 @@ void fillExpensesList(HWND hListView, LVITEM vitem, struct Expenses *expenses, i
 	vitem.iSubItem = 5;
 	ListView_SetItem(hListView, &vitem);
 }
+
+// fillCountArrearage函数介绍
+// 功能：遍历所有的学生数据，通过计算显示出所有欠费的数据
+// 返回值：欠费学生的数量
 
 int fillCountArrearage(HWND hListView, LVITEM vitem){
 	struct Building *head = getHead();
@@ -112,6 +128,10 @@ int fillCountArrearage(HWND hListView, LVITEM vitem){
 	return count;
 }
 
+// fillCountDormitory函数介绍
+// 功能：遍历所有的宿舍楼数据，按照入住率高低来进行排序显示
+// 返回值：无意义。。。
+
 int fillCountDormitory(HWND hListView, LVITEM vitem){
 	struct Building *head = getHead();
 	struct Building *building;
@@ -120,13 +140,22 @@ int fillCountDormitory(HWND hListView, LVITEM vitem){
 	int num = 0;
 	int amount = 0;
 	building = head;
+	
+	// 先得到宿舍楼的总数量
+
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		amount++;
 	}
+
+	// 创建一个动态数组
+
 	headOfArray = (struct countDocumentory*)malloc(sizeof(struct countDocumentory) * amount);
 	array = headOfArray;
 	building = head;
+
+	//将需要的数据传入到这个动态数组中
+
 	while (building->nextBuilding != NULL){
 		building = building->nextBuilding;
 		num = countDormitory(building);
@@ -136,6 +165,9 @@ int fillCountDormitory(HWND hListView, LVITEM vitem){
 		strcpy(array->num, building->num);
 		array++;
 	}
+
+	//排序，并且将结果显示在hListView之中
+
 	qsort(headOfArray, amount, sizeof(struct countDocumentory), cmp);
 	array = headOfArray;
 	for (int i = 0; i < amount; i++){
@@ -158,6 +190,10 @@ int fillCountDormitory(HWND hListView, LVITEM vitem){
 	}
 	return 1;
 }
+
+// fillCountGender函数介绍
+// 功能：遍历所有的四种学生类型，计算男女比例之后，将结果放入到hListView里面
+// 返回值：无意义。。。
 
 int fillCountGender(HWND hListView, LVITEM vitem){
 	float male;
@@ -186,6 +222,10 @@ int fillCountGender(HWND hListView, LVITEM vitem){
 	return 1;
 }
 
+// fillCountIncome函数介绍
+// 功能：遍历所有的宿舍楼，然后显示相应收入信息
+// 返回值：无意义。。。
+
 int fillCountIncome(HWND hListView, LVITEM vitem){
 	struct Building *head = getHead();
 	struct Building *building;
@@ -206,6 +246,10 @@ int fillCountIncome(HWND hListView, LVITEM vitem){
 	return 1;
 }
 
+// fillCountClass函数介绍
+// 功能：获取有班级信息的链表，然后依次往下显示信息即可
+// 返回值：无意义。。。
+
 int fillCountClass(HWND hListView, LVITEM vitem){
 	struct CountClass *head = countClass();
 	struct CountClass *countClass;
@@ -224,5 +268,5 @@ int fillCountClass(HWND hListView, LVITEM vitem){
 		vitem.iSubItem = 2;
 		ListView_SetItem(hListView, &vitem);
 	}
-	return 0;
+	return 1;
 }

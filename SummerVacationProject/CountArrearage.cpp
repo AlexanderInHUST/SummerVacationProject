@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// CountArrearageProc函数介绍
+// 功能：控制关于统计欠费学生对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK CountArrearageProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_S_A_LIST);

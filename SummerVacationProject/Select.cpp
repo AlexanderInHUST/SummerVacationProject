@@ -1,9 +1,16 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// 此文件是为了解决对话框之间无法传输数据的问题，只能临时使用一个结构体来存储选中的数据
+// 以下函数只用于编辑功能之中
+
 char *buildingData;
 char *studentData;
 struct Expenses *expensesData;
+
+// setBuildingCondition函数介绍
+// 功能：将选中的宿舍楼数据的唯一标识num放入到buildingData中
+// 返回值：是否选中（没选中mark将返回-1）
 
 int setBuildingCondition(HWND hListView){
 	int mark = ListView_GetSelectionMark(hListView);
@@ -17,9 +24,17 @@ int setBuildingCondition(HWND hListView){
 	return mark;
 }
 
+// getBuildingCondition函数介绍
+// 功能：返回buildingData
+// 返回值：buildingData
+
 char* getBuildingCondition(){
 	return buildingData;
 }
+
+// setBuildingCondition函数介绍
+// 功能：将选中的学生数据的唯一标识id放入到studentData中
+// 返回值：是否选中（没选中mark将返回-1）
 
 int setStudentCondition(HWND hListView){
 	int mark = ListView_GetSelectionMark(hListView);
@@ -33,9 +48,17 @@ int setStudentCondition(HWND hListView){
 	return mark;
 }
 
+// getStudentCondition函数介绍
+// 功能：返回studentData
+// 返回值：studentData
+
 char* getStudentCondition(){
 	return studentData;
 }
+
+// setExpensesCondition函数介绍
+// 功能：将选中的缴费数据的所有标识符放入到expensesData中
+// 返回值：是否选中（没选中mark将返回-1）
 
 int setExpensesCondition(HWND hListView){
 	int mark = ListView_GetSelectionMark(hListView);
@@ -73,6 +96,10 @@ int setExpensesCondition(HWND hListView){
 	strcpy(expensesData->officer, officerString);
 	return mark;
 }
+
+// getExpensesCondition函数介绍
+// 功能：返回expensesData
+// 返回值：expensesData
 
 struct Expenses* getExpensesCondition(){
 	return expensesData;

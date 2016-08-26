@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// CountClassProc函数介绍
+// 功能：控制关于统计班级信息对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK CountClassProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_S_C_LIST);

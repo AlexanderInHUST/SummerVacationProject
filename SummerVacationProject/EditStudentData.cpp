@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// editStudentDataProc函数介绍
+// 功能：控制关于编辑学生对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
@@ -100,6 +104,11 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 								struct Building *tempBuilding = tempHead;
 								struct Student *tempStudent;
 								struct Student *copyStudent;
+
+								// 如果学生信息中的宿舍楼被编辑了，那么就要重新改变链表结构
+								// 需要将原来的学生数据删除，再在另一个宿舍楼的链表下添加上
+								// 此处可以优化，可以使用已写好的函数进行操作，懒得改了
+
 								while (tempBuilding->nextBuilding != NULL){
 									tempBuilding = tempBuilding->nextBuilding;
 									if (strcmp(tempBuilding->num, student->building) == 0){

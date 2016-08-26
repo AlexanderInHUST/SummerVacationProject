@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// FindExpensesDataByIdProc函数介绍
+// 功能：控制关于根据学号查询缴费对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK FindExpensesDataByIdProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	struct Building *head = getHead();

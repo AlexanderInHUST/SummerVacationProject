@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// saveBuildingData函数介绍
+// 功能：将所有的宿舍楼信息存储到data_of_building.dat中
+// 返回值：是否成功
+
 int saveBuildingData(struct Building* head){
 	FILE *file;
 	struct Building *p;
@@ -18,6 +22,10 @@ int saveBuildingData(struct Building* head){
 	fclose(file);
 	return 1;
 }
+
+// saveStudentData函数介绍
+// 功能：将所有的学生信息存储到data_of_student.dat中
+// 返回值：是否成功
 
 int saveStudentData(struct Building* head){
 	FILE *file;
@@ -41,6 +49,10 @@ int saveStudentData(struct Building* head){
 	fclose(file);
 	return 1;
 }
+
+// saveExpensesData函数介绍
+// 功能：将所有的缴费信息存储到data_of_expenses.dat中
+// 返回值：是否成功
 
 int saveExpensesData(struct Building* head){
 	FILE *file;
@@ -69,6 +81,10 @@ int saveExpensesData(struct Building* head){
 	fclose(file);
 	return 1;
 }
+
+// saveAllData函数介绍
+// 功能：管理以上函数，进行存储
+// 返回值：保存的结果
 
 int saveAllData(struct Building *head){
 	if (saveBuildingData(head) == -1)

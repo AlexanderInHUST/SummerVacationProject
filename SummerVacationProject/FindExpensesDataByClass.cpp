@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// FindExpensesDataByClassProc函数介绍
+// 功能：控制关于根据班级查询缴费对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_F_E_C_LIST);
@@ -58,6 +62,9 @@ INT_PTR CALLBACK FindExpensesDataByClassProc(HWND hDlg, UINT message, WPARAM wPa
 				MessageBox(hDlg, L"请输入所信息的班级名称", L"提示", MB_OK);
 			}
 			else{
+
+				// 构成一个包含头结点的班级都是所查询的学生的链表
+
 				struct Building *building = head;
 				struct Student *studentByClass;
 				struct Student *queryStudent;

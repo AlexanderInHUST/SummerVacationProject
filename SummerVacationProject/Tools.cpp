@@ -3,6 +3,10 @@
 #include "time.h"
 #include "math.h"
 
+// initialID函数介绍
+// 功能：将当前UNIX时间戳作为唯一ID的基础放到ID.dat之中
+// 返回值：无
+
 void initialID(){
 	FILE *file;
 	file = fopen("ID.dat", "w");
@@ -10,6 +14,10 @@ void initialID(){
 	fclose(file);
 	return;
 }
+
+// initialID函数介绍
+// 功能：从ID.dat中取出目前的唯一ID，并且使其加1后再放入回去
+// 返回值：唯一ID
 
 int getID(){
 	FILE *rFile;
@@ -24,12 +32,20 @@ int getID(){
 	return id;
 }
 
+// intToString函数介绍
+// 功能：将int转换为字符串
+// 返回值：字符串的首地址
+
 char* intToString(int number){
 	char* string;
 	string = (char*)malloc(sizeof(char) * 20);
 	itoa(number, string, 10);
 	return string;
 }
+
+// floatToString函数介绍
+// 功能：将float转换为字符串
+// 返回值：字符串的首地址
 
 char* floatToString(float number){
 	char* string;
@@ -56,6 +72,10 @@ char* floatToString(float number){
 	return string;
 }
 
+// stringToLPWSTR函数介绍
+// 功能：将字符串转换为LPWSTR
+// 返回值：LPWSTR
+
 LPWSTR stringToLPWSTR(char* string){
 	int dwLen = strlen(string) + 1;
 	int nwLen = MultiByteToWideChar(CP_ACP, 0, string, dwLen, NULL, 0);
@@ -63,6 +83,10 @@ LPWSTR stringToLPWSTR(char* string){
 	MultiByteToWideChar(CP_ACP, 0, string, dwLen, result, nwLen);
 	return result;
 }
+
+// charToLPWSTR函数介绍
+// 功能：将char转换为LPWSTR
+// 返回值：LPWSTR
 
 LPWSTR charToLPWSTR(char ch){
 	char string[2];
@@ -75,6 +99,10 @@ LPWSTR charToLPWSTR(char ch){
 	return result;
 }
 
+// getDataFromEditBox函数介绍
+// 功能：从editBox之中提取数据，并且返回字符串
+// 返回值：字符串的首地址
+
 char* getDataFromEditBox(HWND editBox, int length){
 	LPWSTR info = (LPWSTR)malloc(sizeof(WCHAR) * (length + 1));
 	GetWindowText((HWND)editBox, info, length + 1);
@@ -84,12 +112,20 @@ char* getDataFromEditBox(HWND editBox, int length){
 	return stringInfo;
 }
 
+// setDataToEditBox函数介绍
+// 功能：将字符串输入到eidtBox之中
+// 返回值：无
+
 void setDataToEditBox(HWND editBox, char* resource){
 	LPWSTR info = (LPWSTR)malloc(sizeof(WCHAR) * (strlen(resource) + 1));
 	USES_CONVERSION;
 	info = A2T(resource);
 	SetWindowText(editBox, info);
 }
+
+// cmp函数介绍
+// 功能：比较函数，提供给qsort函数，实现能够按照入住率高低进行排序
+// 返回值：比较结果
 
 int cmp(const void *a, const void *b){
 	if ((((struct countDocumentory*)a)->ratio * 1000 - ((struct countDocumentory*)b)->ratio * 1000) > 0)

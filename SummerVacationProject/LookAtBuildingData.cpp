@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// LookAtBuildingDataProc函数介绍
+// 功能：控制关于查看所有宿舍楼对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
+
 INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){
 	UNREFERENCED_PARAMETER(lParam);
 	HWND hListView = GetDlgItem(hDlg, IDC_L_D_LIST);
@@ -56,6 +61,9 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
 		case IDC_L_D_NEW:{
+
+			// 打开插入新的宿舍楼信息的对话框
+
 		    DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_I_B), hDlg, insertBuidlingDataProc);
 			EndDialog(hDlg, LOWORD(wParam));
@@ -64,6 +72,9 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 			return (INT_PTR)TRUE;
 		}
 		case IDC_L_D_EDIT:{
+
+			// 打开编辑宿舍楼信息的对话框
+
 			if (setBuildingCondition(hListView) == -1){
 				MessageBox(hDlg, L"请选中一条信息", L"提示", MB_OK);
 			}
@@ -77,6 +88,9 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 			return (INT_PTR)TRUE;
 		}
 		case IDC_L_D_DEL:{
+
+			// 直接删除一条信息
+
 			deleteBuildingData(head, hListView, hDlg);
 			EndDialog(hDlg, LOWORD(wParam));
 			DialogBox(GetModuleHandle(NULL),

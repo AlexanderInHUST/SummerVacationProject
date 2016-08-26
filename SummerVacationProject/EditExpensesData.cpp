@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// editExpensesDataProc函数介绍
+// 功能：控制关于编辑缴费对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
+// 详细细节注释参见 EditBuildingData.cpp
+
 INT_PTR CALLBACK editExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);

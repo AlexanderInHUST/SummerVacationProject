@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// createExpensesData函数介绍
+// 功能：分配出一个按照参数传入的值赋值好了的缴费数据的内存，然后返回内存的地址
+// 返回值：创建好了的内存的地址
+
 struct Expenses* createExpensesData(
 	char id[12],
 	char name[20],

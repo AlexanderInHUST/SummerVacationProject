@@ -1,13 +1,20 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// editBuidlingDataProc函数介绍
+// 功能：控制关于编辑宿舍楼对话框里面的一切活动
+// 返回值：对话框的结果，用于windows的某些判断
+
 INT_PTR CALLBACK editBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
-	struct Building *head = getHead();
+	struct Building *head = getHead(); 
 	struct Building *building;
-	char *condition = getBuildingCondition();
+	char *condition = getBuildingCondition(); // 获得之前选中的宿舍楼的标识符num
 	building = head;
+
+	// 初始化所有的editBox，以便输入输出
+
 	HWND numEditBox = GetDlgItem(hDlg, IDC_E_B_NUM);
 	HWND adminEditBox = GetDlgItem(hDlg, IDC_E_B_ADMIN);
 	HWND telEditBox = GetDlgItem(hDlg, IDC_E_B_TEL);
@@ -17,9 +24,12 @@ INT_PTR CALLBACK editBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 	switch (message)
 	{
 	case WM_INITDIALOG:{
+
+		// 初始化的时候根据获取到的num，搜索到整个结点
+
 		while (building->nextBuilding != NULL){
 			building = building->nextBuilding;
-			if (strcmp(building->num, condition) == 0){
+		 	if (strcmp(building->num, condition) == 0){
 				setDataToEditBox(numEditBox, building->num);
 				setDataToEditBox(adminEditBox, building->administrator);
 				setDataToEditBox(telEditBox, building->tel);
@@ -33,6 +43,9 @@ INT_PTR CALLBACK editBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 	case WM_COMMAND:{
 		switch (LOWORD(wParam)){
 		case IDC_E_B_OK:{
+
+			// 获取所有editbox内的数据，并且转化为字符串
+
 			char *numInfo = (char*)malloc(sizeof(char) * 6);
 			strcpy(numInfo, getDataFromEditBox(numEditBox, 5));
 			char *adminInfo = (char*)malloc(sizeof(char) * 21);

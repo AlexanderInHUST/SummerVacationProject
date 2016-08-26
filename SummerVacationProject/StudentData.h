@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// 学生信息的结构体
+// 两个指针是指向下一个结点的
+// rec是指这个结点的唯一ID，nextRec是下一个学生的唯一ID，firstExpensesRec是指第一个缴费信息（头结点）的唯一ID
+
 struct Student{
 	char id[12];
 	char name[12];
@@ -36,6 +40,10 @@ struct Student* createStudentData(
 	struct Expenses *firstExpenses,
 	struct Student *nextStudent,
 	int rec);
+
+// 统计班级信息时的特殊结构体
+// 拥有next指针
+// 也有头结点
 
 struct CountClass{
 	char clazz[10];

@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SummerVacationProject.h"
 
+// loadExpensesList函数介绍
+// 功能：从文本文件中加载传入的学生所有的缴费信息，并且构成链表
+// 返回值：得到的链表头结点的地址
+
 struct Expenses* loadExpensesList(struct Student* student){
 	FILE *file;
 	struct Expenses *preHead = createExpensesData("head", "head", "head", -1, "head", "head", NULL, 0);
@@ -28,6 +32,10 @@ struct Expenses* loadExpensesList(struct Student* student){
 	return preHead->nextExpenses;
 }
 
+// loadStudentList函数介绍
+// 功能：从文本文件中加载传入的宿舍楼所有的学生信息，并且构成链表
+// 返回值：得到的链表头结点的地址
+
 struct Student* loadStudentList(struct Building* building){
 	FILE *file;
 	struct Student *preHead = createStudentData("head", "head", 'H', "head", "head", -1, "head", "head", "head", "head", "head", NULL, NULL, 0);
@@ -54,6 +62,10 @@ struct Student* loadStudentList(struct Building* building){
 	return preHead->nextStudent;
 }
 
+// loadBuildingList函数介绍
+// 功能：从文本文件中加载宿舍楼所有信息，并且构成链表
+// 返回值：得到的链表头结点的地址
+
 struct Building* loadBuildingList(){
 	FILE *file;
 	struct Building *preHead = createBuildingData("head", "head", "head", -1, -1, -1, NULL, NULL, 0);
@@ -79,6 +91,10 @@ struct Building* loadBuildingList(){
 	fclose(file);
 	return preHead->nextBuilding;
 }
+
+// loadAllData函数介绍
+// 功能：组织所有加载的函数，使其构成一个整体的十字链表
+// 返回值：得到的链表头结点的地址
 
 struct Building* loadAllData(){
 	struct Building *head;
