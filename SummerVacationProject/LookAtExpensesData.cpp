@@ -91,10 +91,12 @@ INT_PTR CALLBACK LookAtExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 			return (INT_PTR)TRUE;
 		}
 		case IDC_L_E_DEL:{
-			deleteExpensesData(head, hListView, hDlg);
-			EndDialog(hDlg, LOWORD(wParam));
-			DialogBox(GetModuleHandle(NULL),
-				MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
+			if (MessageBox(hDlg, L"是否确认要删除该信息", L"提示", MB_OKCANCEL) == IDOK){
+				deleteExpensesData(head, hListView, hDlg);
+				EndDialog(hDlg, LOWORD(wParam));
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_L_E), GetParent(hDlg), LookAtExpensesDataProc);
+			}
 			break;
 		}
 		case IDC_L_E_CLOSE:{

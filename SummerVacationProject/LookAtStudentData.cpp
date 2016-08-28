@@ -112,10 +112,12 @@ INT_PTR CALLBACK LookAtStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 			return (INT_PTR)TRUE;
 		}
 		case IDC_L_S_DEL:{
-			deleteStudentData(head, hListView, hDlg);
-			EndDialog(hDlg, LOWORD(wParam));
-			DialogBox(GetModuleHandle(NULL),
-				MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
+			if (MessageBox(hDlg, L"是否确认要删除该信息", L"提示", MB_OKCANCEL) == IDOK){
+				deleteStudentData(head, hListView, hDlg);
+				EndDialog(hDlg, LOWORD(wParam));
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_L_S), GetParent(hDlg), LookAtStudentDataProc);
+			}
 			break;
 		}
 		case IDC_L_S_CLOSE:{

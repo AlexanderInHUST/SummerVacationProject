@@ -12,6 +12,7 @@ TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
 BITMAP bminfo;
 HBITMAP hbm;
+bool save = true;
 
 struct Building *head;
 
@@ -25,6 +26,10 @@ INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 //作为其他函数获得head的唯一方法
 struct Building* getHead(){
 	return head;
+}
+
+void setSave(){
+	save = false;
 }
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -154,12 +159,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// 分析菜单选择: 
 		switch (wmId)
 		{
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
+		case IDM_EXIT:{
+			if (!save){
+				int exitChoice = MessageBox(hWnd, L"是否保存修改", L"提示", MB_YESNOCANCEL);
+				switch (exitChoice){
+				case IDYES:{
+					saveAllData(head);
+				}
+				case IDNO:{
+					PostQuitMessage(0);
+					break;
+				}
+				case IDCANCEL:{
+					break;
+				}
+				}
+			}
+			else{
+				PostQuitMessage(0);
+			}
 			break;
+		}
 		case IDM_SAVE:{
 			saveAllData(head);
 			MessageBox(hWnd, L"保存成功", L"提示", MB_OK);
+			save = true;
 			break;
 		}
 		case IDM_ABOUT:{
@@ -195,16 +219,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_L_D:{
 			DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_L_D), hWnd, LookAtBuildingDataProc);
+			save = false;
 			break;
 		}
 		case IDM_L_S:{
 			DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_L_S), hWnd, LookAtStudentDataProc);
+			save = false;
 			break;
 		}
 		case IDM_L_F:{
 			DialogBox(GetModuleHandle(NULL),
 				MAKEINTRESOURCE(IDD_L_E), hWnd, LookAtExpensesDataProc);
+			save = false;
 			break;
 		}
 		case IDM_S_A:{
@@ -245,8 +272,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EndPaint(hWnd, &ps);
 		break;
 	}
-	case WM_DESTROY:
-		PostQuitMessage(0);
+	case WM_CLOSE:
+		if (!save){
+			int exitChoice = MessageBox(hWnd, L"是否保存修改", L"提示", MB_YESNOCANCEL);
+			switch (exitChoice){
+			case IDYES:{
+				saveAllData(head);
+			}
+			case IDNO:{
+				PostQuitMessage(0);
+				break;
+			}
+			case IDCANCEL:{
+				break;
+			}
+			}
+		}
+		else{
+			PostQuitMessage(0);
+		}
 		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);

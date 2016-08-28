@@ -15,9 +15,7 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 	building = head;
 	HWND idEditBox = GetDlgItem(hDlg, IDC_E_S_ID);
 	HWND nameEditBox = GetDlgItem(hDlg, IDC_E_S_NAME);
-	HWND genderEditBox = GetDlgItem(hDlg, IDC_E_S_GENDER);
 	HWND birthEditBox = GetDlgItem(hDlg, IDC_E_S_BIRTH);
-	HWND categoryEditBox = GetDlgItem(hDlg, IDC_E_S_CATEGORY);
 	HWND sizeEditBox = GetDlgItem(hDlg, IDC_E_S_SIZE);
 	HWND intimeEditBox = GetDlgItem(hDlg, IDC_E_S_INTIME);
 	HWND classEditBox = GetDlgItem(hDlg, IDC_E_S_CLASS);
@@ -35,10 +33,25 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 				if (strcmp(student->id, condition) == 0){
 					setDataToEditBox(idEditBox, student->id);
 					setDataToEditBox(nameEditBox, student->name);
-					USES_CONVERSION;
-					setDataToEditBox(genderEditBox, T2A(charToLPWSTR(student->gender)));
+					if (student->gender == 'M'){
+						CheckRadioButton(hDlg, IDC_E_S_MALE, IDC_E_S_FEMALE, IDC_E_S_MALE);
+					}
+					else{
+						CheckRadioButton(hDlg, IDC_E_S_MALE, IDC_E_S_FEMALE, IDC_E_S_FEMALE);
+					}
 					setDataToEditBox(birthEditBox, student->birth);
-					setDataToEditBox(categoryEditBox, student->category);
+					if (strcmp(student->category, "专科") == 0){
+						CheckRadioButton(hDlg, IDC_E_S_TECHNICAL, IDC_E_S_MASTER, IDC_E_S_TECHNICAL);
+					}
+					else if (strcmp(student->category, "本科") == 0){
+						CheckRadioButton(hDlg, IDC_E_S_TECHNICAL, IDC_E_S_MASTER, IDC_E_S_UNIVERSITY);
+					}
+					else if (strcmp(student->category, "硕士") == 0){
+						CheckRadioButton(hDlg, IDC_E_S_TECHNICAL, IDC_E_S_MASTER, IDC_E_S_POSTGRADUATE);
+					}
+					else{
+						CheckRadioButton(hDlg, IDC_E_S_TECHNICAL, IDC_E_S_MASTER, IDC_E_S_MASTER);
+					}
 					setDataToEditBox(sizeEditBox, intToString(student->size));
 					setDataToEditBox(intimeEditBox, student->inTime);
 					setDataToEditBox(classEditBox, student->clazz);
@@ -58,11 +71,9 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 			char *nameInfo = (char*)malloc(sizeof(char) * 13);
 			strcpy(nameInfo, getDataFromEditBox(nameEditBox, 12));
 			char *genderInfo = (char*)malloc(sizeof(char) * 3);
-			strcpy(genderInfo, getDataFromEditBox(genderEditBox, 2));
 			char *birthInfo = (char*)malloc(sizeof(char) * 13);
 			strcpy(birthInfo, getDataFromEditBox(birthEditBox, 12));
 			char *categoryInfo = (char*)malloc(sizeof(char) * 16);
-			strcpy(categoryInfo, getDataFromEditBox(categoryEditBox, 15));
 			char *sizeInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(sizeInfo, getDataFromEditBox(sizeEditBox, 20));
 			char *intimeInfo = (char*)malloc(sizeof(char) * 9);
@@ -75,14 +86,27 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 			strcpy(roomInfo, getDataFromEditBox(roomEditBox, 5));
 			char *telInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(telInfo, getDataFromEditBox(telEditBox, 20));
-			if (strlen(idInfo) == 0 || strlen(nameInfo) == 0 || strlen(genderInfo) == 0 ||
-				strlen(birthInfo) == 0 || strlen(categoryInfo) == 0 || strlen(sizeInfo) == 0 ||
+			if (strlen(idInfo) == 0 || strlen(nameInfo) == 0 || (IsDlgButtonChecked(hDlg, IDC_E_S_MALE) == false && IsDlgButtonChecked(hDlg, IDC_E_S_FEMALE) == false) ||
+				strlen(birthInfo) == 0 || (IsDlgButtonChecked(hDlg, IDC_E_S_TECHNICAL) == false && IsDlgButtonChecked(hDlg, IDC_E_S_UNIVERSITY) == false && IsDlgButtonChecked(hDlg, IDC_E_S_POSTGRADUATE) == false && IsDlgButtonChecked(hDlg, IDC_E_S_MASTER) == false) || strlen(sizeInfo) == 0 ||
 				strlen(intimeInfo) == 0 || strlen(classInfo) == 0 || strlen(buildingInfo) == 0 ||
 				strlen(roomInfo) == 0 || strlen(telInfo) == 0){
 				MessageBox(hDlg, L"请填完所有的数据", L"提示", MB_OK);
 			}
 			else{
 				bool done = false;
+				genderInfo = IsDlgButtonChecked(hDlg, IDC_E_S_MALE) ? "M" : "F";
+				if (IsDlgButtonChecked(hDlg, IDC_E_S_TECHNICAL)){
+					categoryInfo = "专科";
+				}
+				else if (IsDlgButtonChecked(hDlg, IDC_E_S_UNIVERSITY)){
+					categoryInfo = "本科";
+				}
+				else if (IsDlgButtonChecked(hDlg, IDC_E_S_POSTGRADUATE)){
+					categoryInfo = "硕士";
+				}
+				else{
+					categoryInfo = "博士";
+				}
 				while (building->nextBuilding != NULL){
 					building = building->nextBuilding;
 					student = building->firstStudent;

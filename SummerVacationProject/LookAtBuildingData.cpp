@@ -91,10 +91,12 @@ INT_PTR CALLBACK LookAtBuildingDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 
 			// 直接删除一条信息
 
-			deleteBuildingData(head, hListView, hDlg);
-			EndDialog(hDlg, LOWORD(wParam));
-			DialogBox(GetModuleHandle(NULL),
-				MAKEINTRESOURCE(IDD_L_D), GetParent(hDlg), LookAtBuildingDataProc);
+			if (MessageBox(hDlg, L"是否确认要删除该信息", L"提示", MB_OKCANCEL) == IDOK){
+				deleteBuildingData(head, hListView, hDlg);
+				EndDialog(hDlg, LOWORD(wParam));
+				DialogBox(GetModuleHandle(NULL),
+					MAKEINTRESOURCE(IDD_L_D), GetParent(hDlg), LookAtBuildingDataProc);
+			}
 			break;
 		}
 		case IDC_L_D_CLOSE:{
