@@ -34,7 +34,7 @@ INT_PTR CALLBACK editBuidlingDataProc(HWND hDlg, UINT message, WPARAM wParam, LP
 				setDataToEditBox(adminEditBox, building->administrator);
 				setDataToEditBox(telEditBox, building->tel);
 				setDataToEditBox(roomEditBox, intToString(building->rooms));
-				setDataToEditBox(bedEditBox, intToString(building->beds));
+				setDataToEditBox(bedEditBox, intToString(building->beds / building->rooms));
 				setDataToEditBox(costEditBox, floatToString(building->cost));
 			}
 		}

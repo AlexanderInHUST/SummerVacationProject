@@ -23,7 +23,9 @@ INT_PTR CALLBACK insertStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 		case IDC_I_S_OK:{
 			HWND idEditBox = GetDlgItem(hDlg, IDC_I_S_ID);
 			HWND nameEditBox = GetDlgItem(hDlg, IDC_I_S_NAME);
-			HWND birthEditBox = GetDlgItem(hDlg, IDC_I_S_BIRTH);
+			HWND birthYearEditBox = GetDlgItem(hDlg, IDC_I_S_BIRTH_YEAR);
+			HWND birthMonthEditBox = GetDlgItem(hDlg, IDC_I_S_BIRTH_MONTH);
+			HWND birthDayEditBox = GetDlgItem(hDlg, IDC_I_S_BIRTH_DAY);
 			HWND sizeEditBox = GetDlgItem(hDlg, IDC_I_S_SIZE);
 			HWND intimeEditBox = GetDlgItem(hDlg, IDC_I_S_INTIME);
 			HWND classEditBox = GetDlgItem(hDlg, IDC_I_S_CLASS);
@@ -36,7 +38,12 @@ INT_PTR CALLBACK insertStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 			strcpy(nameInfo, getDataFromEditBox(nameEditBox, 12));
 			char *genderInfo = (char*)malloc(sizeof(char) * 3);
 			char *birthInfo = (char*)malloc(sizeof(char) * 13);
-			strcpy(birthInfo, getDataFromEditBox(birthEditBox, 12));
+			char *birthYearInfo = (char*)malloc(sizeof(char) * 5);
+			char *birthMonthInfo = (char*)malloc(sizeof(char) * 5);
+			char *birthDayInfo = (char*)malloc(sizeof(char) * 5);
+			strcpy(birthYearInfo, getDataFromEditBox(birthYearEditBox, 5));
+			strcpy(birthMonthInfo, getDataFromEditBox(birthMonthEditBox, 5));
+			strcpy(birthDayInfo, getDataFromEditBox(birthDayEditBox, 5));
 			char *categoryInfo = (char*)malloc(sizeof(char) * 16);
 			char *sizeInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(sizeInfo, getDataFromEditBox(sizeEditBox, 20));
@@ -50,6 +57,7 @@ INT_PTR CALLBACK insertStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, L
 			strcpy(roomInfo, getDataFromEditBox(roomEditBox, 5));
 			char *telInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(telInfo, getDataFromEditBox(telEditBox, 20));
+			sprintf(birthInfo, "%s/%s/%s", birthYearInfo, birthMonthInfo, birthDayInfo);
 			if (strlen(idInfo) == 0 || strlen(nameInfo) == 0 || (IsDlgButtonChecked(hDlg, IDC_I_S_MALE) == false && IsDlgButtonChecked(hDlg, IDC_I_S_FEMALE) == false) ||
 				strlen(birthInfo) == 0 || (IsDlgButtonChecked(hDlg, IDC_I_S_TECHNICAL) == false && IsDlgButtonChecked(hDlg, IDC_I_S_UNIVERSITY) == false && IsDlgButtonChecked(hDlg, IDC_I_S_POSTGRADUATE) == false && IsDlgButtonChecked(hDlg, IDC_I_S_MASTER) == false) || strlen(sizeInfo) == 0 ||
 				strlen(intimeInfo) == 0 || strlen(classInfo) == 0 || strlen(buildingInfo) == 0 ||
