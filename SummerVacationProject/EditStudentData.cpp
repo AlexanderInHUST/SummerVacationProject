@@ -41,7 +41,9 @@ INT_PTR CALLBACK editStudentDataProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 					else{
 						CheckRadioButton(hDlg, IDC_E_S_MALE, IDC_E_S_FEMALE, IDC_E_S_FEMALE);
 					}
-					setDataToEditBox(birthYearEditBox, strtok(student->birth, "/"));
+					char *tempBirth = (char*)malloc(sizeof(char) * 13);
+					strcpy(tempBirth, student->birth);
+					setDataToEditBox(birthYearEditBox, strtok(tempBirth, "/"));
 					setDataToEditBox(birthMonthEditBox, strtok(NULL, "/"));
 					setDataToEditBox(birthDayEditBox, strtok(NULL, "/"));
 					if (strcmp(student->category, "×¨¿Æ") == 0){
