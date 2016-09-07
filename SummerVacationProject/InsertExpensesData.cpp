@@ -38,7 +38,9 @@ INT_PTR CALLBACK insertExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 		case IDC_I_E_OK:{
 			HWND idEditBox = GetDlgItem(hDlg, IDC_I_E_ID);
 			HWND nameEditBox = GetDlgItem(hDlg, IDC_I_E_NAME);
-			HWND dateEditBox = GetDlgItem(hDlg, IDC_I_E_DATE);
+			HWND yearEditBox = GetDlgItem(hDlg, IDC_I_E_YEAR);
+			HWND monthEditBox = GetDlgItem(hDlg, IDC_I_E_MONTH);
+			HWND dayEditBox = GetDlgItem(hDlg, IDC_I_E_DAY);
 			HWND costEditBox = GetDlgItem(hDlg, IDC_I_E_COST);
 			HWND usageEditBox = GetDlgItem(hDlg, IDC_I_E_USAGE);
 			HWND officerEditBox = GetDlgItem(hDlg, IDC_I_E_OFFICER);
@@ -47,13 +49,19 @@ INT_PTR CALLBACK insertExpensesDataProc(HWND hDlg, UINT message, WPARAM wParam, 
 			char *nameInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(nameInfo, getDataFromEditBox(nameEditBox, 20));
 			char *dateInfo = (char*)malloc(sizeof(char) * 21);
-			strcpy(dateInfo, getDataFromEditBox(dateEditBox, 20));
+			char *dateYearInfo = (char*)malloc(sizeof(char) * 5);
+			char *dateMonthInfo = (char*)malloc(sizeof(char) * 5);
+			char *dateDayInfo = (char*)malloc(sizeof(char) * 5);
+			strcpy(dateYearInfo, getDataFromEditBox(yearEditBox, 5));
+			strcpy(dateMonthInfo, getDataFromEditBox(monthEditBox, 5));
+			strcpy(dateDayInfo, getDataFromEditBox(dayEditBox, 5));
 			char *costInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(costInfo, getDataFromEditBox(costEditBox, 20));
 			char *usageInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(usageInfo, getDataFromEditBox(usageEditBox, 20));
 			char *officerInfo = (char*)malloc(sizeof(char) * 21);
 			strcpy(officerInfo, getDataFromEditBox(officerEditBox, 20));
+			sprintf(dateInfo, "%s/%s/%s", dateYearInfo, dateMonthInfo, dateDayInfo);
 			if (strlen(idInfo) == 0 || strlen(nameInfo) == 0 || strlen(dateInfo) == 0 ||
 				strlen(costInfo) == 0 || strlen(usageInfo) == 0 || strlen(officerInfo) == 0){
 				MessageBox(hDlg, L"请填完所有的数据", L"提示", MB_OK);
